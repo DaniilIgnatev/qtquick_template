@@ -4,7 +4,10 @@ project(bms VERSION 0.1 LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-find_package(Qt6 REQUIRED COMPONENTS Quick)
+find_package(Qt6 REQUIRED COMPONENTS Quick QuickWidgets)
+
+find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Widgets)
+find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets)
 
 qt_standard_project_setup(REQUIRES 6.8)
 
@@ -13,9 +16,11 @@ qt_add_executable(appbms
 )
 
 qt_add_qml_module(appbms
-    URI bms
+    URI com.infineon.bms
+    RESOURCE_PREFIX qml
     QML_FILES
-        Main.qml
+        qml/QuickWidgetTab.qml
+        qml/QuickViewTab.qml
 )
 
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.
@@ -31,7 +36,10 @@ set_target_properties(appbms PROPERTIES
 
 target_link_libraries(appbms
     PRIVATE Qt6::Quick
+    Qt6::QuickWidgets
 )
+
+target_link_libraries(appbms PRIVATE Qt${QT_VERSION_MAJOR}::Widgets)
 
 include(GNUInstallDirs)
 install(TARGETS appbms
