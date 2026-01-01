@@ -15,12 +15,9 @@ qt_add_executable(appbms
     main.cpp
 )
 
-qt_add_qml_module(appbms
-    URI com.infineon.bms
-    RESOURCE_PREFIX qml
-    QML_FILES
-        qml/QuickWidgetTab.qml
-        qml/QuickViewTab.qml
+add_subdirectory(ui)
+target_link_libraries(appbms PRIVATE
+    uiplugin
 )
 
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.

@@ -29,14 +29,14 @@ int main(int argc, char *argv[])
     // -------------------------------------------------
     QQuickWidget* quickWidgetTab = new QQuickWidget();
     quickWidgetTab->setResizeMode(QQuickWidget::SizeRootObjectToView);
-    quickWidgetTab->setSource(QUrl("qrc:/qml/com/infineon/bms/qml/QuickWidgetTab.qml"));
+    quickWidgetTab->setSource(QUrl("qrc:/qml/ui/QuickWidgetTab.qml"));
     tabs->addTab(quickWidgetTab, "QQuickWidget");
 
     // -------------------------------------------------
     // TAB 3: QQuickView wrapped with createWindowContainer
     // -------------------------------------------------
     QQuickView* quickView = new QQuickView();
-    quickView->setSource(QUrl("qrc:/qml/com/infineon/bms/qml/QuickViewTab.qml"));
+    quickView->setSource(QUrl("qrc:/qml/ui/QuickViewTab.qml"));
 
     QWidget* quickViewContainer =
         QWidget::createWindowContainer(quickView);
