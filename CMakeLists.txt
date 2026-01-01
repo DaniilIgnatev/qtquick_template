@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.16)
 
-project(bms VERSION 0.1 LANGUAGES CXX)
+project(bms_ai VERSION 0.1 LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
@@ -11,35 +11,35 @@ find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets)
 
 qt_standard_project_setup(REQUIRES 6.8)
 
-qt_add_executable(appbms
+qt_add_executable(app
     main.cpp
 )
 
 add_subdirectory(ui)
-target_link_libraries(appbms PRIVATE
+target_link_libraries(app PRIVATE
     uiplugin
 )
 
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.
 # If you are developing for iOS or macOS you should consider setting an
 # explicit, fixed bundle identifier manually though.
-set_target_properties(appbms PROPERTIES
-#    MACOSX_BUNDLE_GUI_IDENTIFIER com.example.appbms
+set_target_properties(app PROPERTIES
+#    MACOSX_BUNDLE_GUI_IDENTIFIER com.example.app
     MACOSX_BUNDLE_BUNDLE_VERSION ${PROJECT_VERSION}
     MACOSX_BUNDLE_SHORT_VERSION_STRING ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}
     MACOSX_BUNDLE TRUE
     WIN32_EXECUTABLE TRUE
 )
 
-target_link_libraries(appbms
+target_link_libraries(app
     PRIVATE Qt6::Quick
     Qt6::QuickWidgets
 )
 
-target_link_libraries(appbms PRIVATE Qt${QT_VERSION_MAJOR}::Widgets)
+target_link_libraries(app PRIVATE Qt${QT_VERSION_MAJOR}::Widgets)
 
 include(GNUInstallDirs)
-install(TARGETS appbms
+install(TARGETS app
     BUNDLE DESTINATION .
     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
     RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
