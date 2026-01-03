@@ -7,11 +7,18 @@ This is a demo-focused project, not production-grade software.
 
 ## General Principles
 
+- Do not fall into assumptions, clarify the problem first
+- Generated code is isolated into separated files and put aside from manually tunable code
+- Use CMake best practises to organize the project
+- Follow the top-down approach in code design and structure of the project
 - Prefer clarity over cleverness
 - Optimize for readability and demo value
 - Avoid overengineering and unnecessary abstractions
-- Follow Qt and QML idioms
-- Generated code is isolated from manually tunable code.
+- Follow the commonly accepted idioms in software development
+- Verify correctness of the generated code
+- Build the project and run tests before commiting the changes
+- Follow the best practises in unit-testing
+- Mock external dependencies for testing
 
 ---
 
@@ -94,3 +101,4 @@ Example:
 ```qml
 import QtQuick 2.15
 import QtQuick.Controls 2.15
+```
