@@ -1,13 +1,15 @@
 cmake_minimum_required(VERSION 3.22)
 
+# Optionally enable testing (default ON)
+option(BUILD_TESTING "Enable testing" ON)
+
 if(BUILD_TESTING)
     enable_testing()
 endif()
 
-include(GNUInstallDirs)
-
 project(ai_generated VERSION 0.1 LANGUAGES CXX)
 
+include(GNUInstallDirs)
 include(InstallRequiredSystemLibraries)
 
 # C++ standard
@@ -15,9 +17,12 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 # Qt setup
+find_package(Qt6 REQUIRED COMPONENTS QML)
 find_package(Qt6 REQUIRED COMPONENTS Quick)
 find_package(Qt6 REQUIRED COMPONENTS QuickWidgets)
 find_package(Qt6 REQUIRED COMPONENTS Widgets)
+find_package(Qt6 REQUIRED COMPONENTS Test)
+find_package(Qt6 REQUIRED COMPONENTS QuickTest)
 qt_standard_project_setup(REQUIRES 6.10)
 
 add_subdirectory(src)

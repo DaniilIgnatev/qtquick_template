@@ -1,0 +1,17 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Launch Qt App",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/build/src/app/app.app/Contents/MacOS/app",
+            "args": [],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}/build/src/app/app.app/Contents/MacOS",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "lldb"
+        }
+    ]
+}

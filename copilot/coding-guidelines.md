@@ -1,7 +1,20 @@
 # Coding Guidelines – C++ / QtQuick / QML
 
+
 These guidelines apply to all code generated in this repository.
 This is a demo-focused project, not production-grade software.
+
+---
+
+## Project Configuration & Supplementary Files
+
+- Whenever code or project structure changes (e.g., new modules, tests, resources, or dependencies), ensure all relevant configuration and supplementary files are automatically updated. This includes:
+	- CMakeLists.txt and related CMake files
+	- CI/CD workflows (e.g., GitHub Actions)
+	- VSCode configuration (.vscode/)
+	- Packaging scripts (e.g., CPackConfig.cmake)
+	- Documentation (README, CONTRIBUTING, etc.)
+- This ensures the project remains buildable, testable, and usable as a template without manual intervention.
 
 ---
 
