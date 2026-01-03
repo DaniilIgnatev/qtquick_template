@@ -7,7 +7,7 @@ if(BUILD_TESTING)
     enable_testing()
 endif()
 
-project(ai_generated VERSION 0.1 LANGUAGES CXX)
+project(qtquick_template VERSION 0.1 LANGUAGES CXX)
 
 include(GNUInstallDirs)
 include(InstallRequiredSystemLibraries)
