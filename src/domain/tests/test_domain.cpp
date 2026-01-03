@@ -1,10 +1,12 @@
-#include <cassert>
-#include <iostream>
+#include <QtTest/QtTest>
 
 #include "domain.hpp"
 
-int main() {
-    assert(example_function() == 42);
-    std::cout << "Domain logic test passed.\n";
-    return 0;
-}
+class DomainTest : public QObject {
+    Q_OBJECT
+   private slots:
+    void test_example_function() { QCOMPARE(example_function(), 42); }
+};
+
+QTEST_MAIN(DomainTest)
+#include "test_domain.moc"
