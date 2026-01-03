@@ -1,12 +1,14 @@
 cmake_minimum_required(VERSION 3.22)
 
-if (BUILD_TESTING)
+if(BUILD_TESTING)
     enable_testing()
 endif()
 
 include(GNUInstallDirs)
 
 project(ai_generated VERSION 0.1 LANGUAGES CXX)
+
+include(InstallRequiredSystemLibraries)
 
 # C++ standard
 set(CMAKE_CXX_STANDARD 17)
@@ -25,9 +27,13 @@ add_subdirectory(tests)
 # If you are developing for iOS or macOS you should consider setting an
 # explicit, fixed bundle identifier manually though.
 set_target_properties(app PROPERTIES
-#    MACOSX_BUNDLE_GUI_IDENTIFIER com.example.app
+
+    # MACOSX_BUNDLE_GUI_IDENTIFIER com.example.app
     MACOSX_BUNDLE_BUNDLE_VERSION ${PROJECT_VERSION}
     MACOSX_BUNDLE_SHORT_VERSION_STRING ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}
     MACOSX_BUNDLE TRUE
     WIN32_EXECUTABLE TRUE
 )
+
+# Packaging support
+include(CPackConfig.cmake)
