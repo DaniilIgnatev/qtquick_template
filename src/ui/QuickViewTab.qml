@@ -6,6 +6,7 @@ Rectangle {
     anchors.fill: parent
 
     Text {
+        objectName: "Text"
         text: "This is QML via QQuickView (QWindow)"
         anchors.centerIn: parent
         font.pixelSize: 18
