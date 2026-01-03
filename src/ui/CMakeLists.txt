@@ -8,3 +8,7 @@ qt_add_qml_module(ui
         QuickWidgetTab.qml
         QuickViewTab.qml
 )
+
+if (BUILD_TESTING)
+    add_subdirectory(tests)
+endif()
