@@ -51,6 +51,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: build-dir
+          path: build/
 
       - name: Set up Qt
         uses: jurplel/install-qt-action@v4
