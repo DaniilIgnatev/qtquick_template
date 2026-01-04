@@ -6,7 +6,9 @@
             "type": "shell",
             "command": "cmake --build build",
             "group": "build",
-            "problemMatcher": ["$gcc"],
+            "problemMatcher": [
+                "$gcc"
+            ],
             "detail": "Build the project using CMake"
         },
         {
