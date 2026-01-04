@@ -10,7 +10,7 @@ on:
 jobs:
   ci:
     name: Build & Test (CI)
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
 
     steps:
       - uses: actions/checkout@v4
@@ -47,7 +47,7 @@ jobs:
   cd:
     name: Package & Deploy (CD)
     needs: ci
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
 
     steps:
       - uses: actions/checkout@v4
