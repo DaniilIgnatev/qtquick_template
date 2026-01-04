@@ -3,26 +3,68 @@ name: CMake Build & Test
 on:
   push:
     branches: [ main ]
+    tags: [ 'v*.*.*' ]
   pull_request:
     branches: [ main ]
+  workflow_dispatch:
 
 jobs:
-  build:
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        os: [ubuntu-latest]
+  ci:
+    name: Build & Test (CI)
+    runs-on: ubuntu-latest
+    if: ${{ !startsWith(github.ref, 'refs/tags/v') }}
     steps:
-    - uses: actions/checkout@v4
-    - name: Set up Qt
-      uses: jurplel/install-qt-action@v4
-      with:
-        version: 6.8.5
-        modules: 'qtbase qtdeclarative qtquickcontrols2 qtquickwidgets qttools qtwidgets qtqml qtquicktest'
-        cache: true
-    - name: Configure CMake
-      run: cmake -S . -B build
-    - name: Build
-      run: cmake --build build --parallel
-    - name: Run tests
-      run: ctest --test-dir build
+      - uses: actions/checkout@v4
+      - name: Set up Qt
+        uses: jurplel/install-qt-action@v4
+        with:
+          version: 6.8.5
+          modules: 'qtbase qtdeclarative qtquickcontrols2 qtquickwidgets qttools qtwidgets qtqml qtquicktest'
+          cache: true
+      - name: Show CMake version
+        run: cmake --version
+      - name: Show Qt version
+        run: qmake --version || true
+      - name: Configure CMake
+        run: cmake -S . -B build
+      - name: Build
+        run: cmake --build build --parallel
+      - name: Run tests
+        run: ctest --test-dir build
+
+  cd:
+    name: Package & Deploy (CD)
+    runs-on: ubuntu-latest
+    if: ${{ github.event_name == 'push' && startsWith(github.ref, 'refs/tags/v') }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Qt
+        uses: jurplel/install-qt-action@v4
+        with:
+          version: 6.8.5
+          modules: 'qtbase qtdeclarative qtquickcontrols2 qtquickwidgets qttools qtwidgets qtqml qtquicktest'
+          cache: true
+      - name: Show CMake version
+        run: cmake --version
+      - name: Show Qt version
+        run: qmake --version || true
+      - name: Configure CMake
+        run: cmake -S . -B build
+      - name: Build
+        run: cmake --build build --parallel
+      - name: Run tests
+        run: ctest --test-dir build
+      - name: Package with CPack
+        run: cmake --build build --target package
+      - name: Upload package artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: qtquick_template-packages
+          path: build/*.{zip,tar.gz}
+          if-no-files-found: ignore
+      - name: Create GitHub Release and upload packages
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            build/*.zip
+            build/*.tar.gz
