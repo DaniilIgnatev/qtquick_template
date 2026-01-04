@@ -1,7 +1,8 @@
 # Copilot Instructions for AI Agents
 
 ## Project Overview
-- **Purpose:** Rapid prototyping and demo of QtQuick apps with C++17 backend, using AI-assisted workflows.
+- **Purpose:** Rapid prototyping and demo of QtQuick apps with C++17 backend, using AI-assisted workflows. The following instructions guide the AI in generating, testing, and maintaining the project.
+
 - **Architecture:**
   - Modular CMake build (see `CMakeLists.txt` at root and in `src/`)
   - UI: QML (MVVM pattern) in `src/ui/`
@@ -43,16 +44,17 @@
 
 ## Updating Project Structure
 - Always update all relevant CMake files when adding/removing modules, tests, or resources.
-- Document new modules/components in `README.md` and `copilot/` as needed.
+- Document new modules/components in `README.md` and `CHANGELOG.md` as needed.
 
 ## References
-- [README.md](../README.md): Project overview, build/run instructions
+- [copilot/requirements.md](../copilot/requirements.md): What must be achieved
 - [copilot/coding-guidelines.md](../copilot/coding-guidelines.md): Coding standards
 - [copilot/testing-guidelines.md](../copilot/testing-guidelines.md): Testing strategy
 - [copilot/tech-stack.md](../copilot/tech-stack.md): Tech stack
+- [README.md](../README.md): Project overview, build/run instructions
 - [CONTRIBUTING.md](../CONTRIBUTING.md): Contribution process
 
 ---
 **Example:**
-- To add a new QML component, place it in `src/ui/`, update `src/ui/CMakeLists.txt`, and add tests in `src/ui/tests/`.
-- For new C++ logic, add to `src/domain/`, update `src/domain/CMakeLists.txt`, and test in `src/domain/tests/`.
+- To add a new QML component, place it in `src/ui/`, update `src/ui/CMakeLists.txt`, and add necessery tests in `src/ui/tests/`.
+- For new C++ logic, add to `src/domain/`, update `src/domain/CMakeLists.txt`, and necessery tests in `src/domain/tests/`.
