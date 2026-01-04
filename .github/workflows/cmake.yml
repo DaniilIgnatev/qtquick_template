@@ -60,6 +60,7 @@ jobs:
           cache: true
 
       - name: Package with CPack
+        working-directory: build
         run: cmake --build . --target package
 
       - name: Create GitHub Release and upload packages
