@@ -1,12 +1,12 @@
 name: CMake Build & Test
 
 on:
+  workflow_dispatch:
   push:
     branches: [main]
     tags: ["v*.*.*"]
   pull_request:
     branches: [main]
-  workflow_dispatch:
 
 jobs:
   ci:
@@ -19,8 +19,7 @@ jobs:
       - name: Set up Qt
         uses: jurplel/install-qt-action@v4
         with:
-          version: 6.8.5
-          modules: qtdeclarative qtquickcontrols2 qtquickwidgets qttools qtwidgets qtqml qtquicktest
+          version: 6.8.3
           cache: true
 
       - run: cmake --version
@@ -33,7 +32,9 @@ jobs:
         run: cmake --build build --parallel
 
       - name: Run tests
-        run: ctest --test-dir build --output-on-failure
+        run: |
+          export QT_QPA_PLATFORM=offscreen
+          ctest --test-dir build --output-on-failure
 
       - name: Upload build artifacts
         uses: actions/upload-artifact@v4
@@ -56,8 +57,7 @@ jobs:
       - name: Set up Qt
         uses: jurplel/install-qt-action@v4
         with:
-          version: 6.8.5
-          modules: qtdeclarative qtquickcontrols2 qtquickwidgets qttools qtwidgets qtqml qtquicktest
+          version: 6.8.3
           cache: true
 
       - name: Package with CPack

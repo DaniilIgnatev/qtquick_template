@@ -17,13 +17,15 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 # Qt setup
-find_package(Qt6 REQUIRED COMPONENTS QML)
-find_package(Qt6 REQUIRED COMPONENTS Quick)
-find_package(Qt6 REQUIRED COMPONENTS QuickWidgets)
-find_package(Qt6 REQUIRED COMPONENTS Widgets)
-find_package(Qt6 REQUIRED COMPONENTS Test)
-find_package(Qt6 REQUIRED COMPONENTS QuickTest)
-qt_standard_project_setup(REQUIRES 6.8.5)
+find_package(Qt6 REQUIRED COMPONENTS
+    Qml
+    Quick
+    QuickWidgets
+    Widgets
+    Test
+    QuickTest
+)
+qt_standard_project_setup(REQUIRES 6.8.3)
 
 add_subdirectory(src)
 add_subdirectory(tests)
