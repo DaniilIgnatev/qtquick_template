@@ -1,4 +1,4 @@
-# AI-Generated QtQuick Template Project
+# QtQuick Template Project with AI
 
 ## Overview
 This template demonstrates how to use AI-assisted workflows (e.g., GitHub Copilot) to generate QtQuick applications with C++ backend logic. It is designed for rapid prototyping, demos, and educational purposes.
