@@ -7,6 +7,20 @@ qt_add_qml_module(ui
     QuickViewTab.qml
 )
 
+# Install the QML module and resources
+install(TARGETS ui
+    ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
+    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+    RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+)
+
+# Install QML files to the correct location for deployment
+install(FILES
+    QuickWidgetTab.qml
+    QuickViewTab.qml
+    DESTINATION ${CMAKE_INSTALL_DATADIR}/qml/ui
+)
+
 if(BUILD_TESTING)
     add_subdirectory(tests)
 endif()

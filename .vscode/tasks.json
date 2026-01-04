@@ -1,23 +1,39 @@
 {
-    "version": "2.0.0",
-    "tasks": [
-        {
-            "label": "CMake Build",
-            "type": "shell",
-            "command": "cmake --build build",
-            "group": "build",
-            "problemMatcher": [
-                "$gcc"
-            ],
-            "detail": "Build the project using CMake"
-        },
-        {
-            "label": "Run Tests",
-            "type": "shell",
-            "command": "ctest --test-dir build",
-            "group": "test",
-            "problemMatcher": [],
-            "detail": "Run all tests using CTest"
-        }
-    ]
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "CMake Build",
+			"type": "shell",
+			"command": "cmake --build build",
+			"group": "build",
+			"problemMatcher": [
+				"$gcc"
+			],
+			"detail": "Build the project using CMake"
+		},
+		{
+			"label": "Run Tests",
+			"type": "shell",
+			"command": "ctest --test-dir build",
+			"group": "test",
+			"problemMatcher": [],
+			"detail": "Run all tests using CTest"
+		},
+		{
+			"label": "Deploy Qt App (macOS/Linux)",
+			"type": "shell",
+			"command": "bash deploy_helper.sh",
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "build"
+		},
+		{
+			"label": "CMake Package (CPack)",
+			"type": "shell",
+			"command": "cmake --build build --target package",
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "build"
+		},
+	]
 }
