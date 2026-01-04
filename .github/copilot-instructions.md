@@ -1,5 +1,8 @@
 # Copilot Instructions for AI Agents
 
+Always verify that the instructions below are up to date with the latest project structure and requirements before generating or modifying code.
+Always verify that any generated code adheres to the  guidelines, can be compiled and pass tests.
+
 ## Project Overview
 - **Purpose:** Rapid prototyping and demo of QtQuick apps with C++17 backend, using AI-assisted workflows. The following instructions guide the AI in generating, testing, and maintaining the project.
 

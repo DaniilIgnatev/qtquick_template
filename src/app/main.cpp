@@ -8,8 +8,13 @@
 #include <QVBoxLayout>
 #include <QWidget>
 
+#include "qml_type_registration.hpp"
+
 int main(int argc, char* argv[]) {
     QApplication app(argc, argv);
+
+    // Register all C++ types for QML before any QML engine/view is created
+    registerQmlTypes();
 
     QQuickView* quickView = new QQuickView();
     quickView->setSource(QUrl("qrc:/qml/ui/QuickView.qml"));

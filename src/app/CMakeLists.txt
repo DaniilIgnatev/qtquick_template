@@ -1,5 +1,6 @@
 qt_add_executable(app
     main.cpp
+    qml_type_registration.cpp
 )
 
 target_link_libraries(app
@@ -7,6 +8,14 @@ target_link_libraries(app
     Qt6::Quick
     Qt6::QuickWidgets
     Qt6::Widgets
+    Qt6::Qml
+    domain
+    ui
+)
+
+target_include_directories(app PRIVATE
+    ${CMAKE_SOURCE_DIR}/src/domain/include
+    ${CMAKE_SOURCE_DIR}/src/ui
 )
 
 install(TARGETS app

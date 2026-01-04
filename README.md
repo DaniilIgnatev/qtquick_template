@@ -36,6 +36,12 @@ ctest --test-dir build
 - `tests/` – Top-level test config
 - `copilot/` – Guidelines and requirements
 
+## C++/QML Type Registration
+
+All C++/QML type registration is centralized for scalability and testability. See:
+
+- [copilot/cpp-qml-type-registration.md](copilot/cpp-qml-type-registration.md) — for the full pattern and test integration instructions.
+
 ## Usage as a Template
 - Fork or copy this repo
 - Replace UI and domain logic as needed
