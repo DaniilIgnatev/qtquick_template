@@ -2,10 +2,10 @@ name: CMake Build & Test
 
 on:
   push:
-    branches: [ main ]
-    tags: [ 'v*.*.*' ]
+    branches: [main]
+    tags: ["v*.*.*"]
   pull_request:
-    branches: [ main ]
+    branches: [main]
   workflow_dispatch:
 
 jobs:
@@ -57,14 +57,16 @@ jobs:
         uses: jurplel/install-qt-action@v4
         with:
           version: 6.8.5
+          modules: qtdeclarative qtquickcontrols2 qtquickwidgets qttools qtwidgets qtqml qtquicktest
           cache: true
 
       - name: Package with CPack
         run: cmake --build . --target package
+        working-directory: build
 
       - name: Create GitHub Release and upload packages
         uses: softprops/action-gh-release@v2
         with:
           files: |
-            *.zip
-            *.tar.gz
+            build/*.zip
+            build/*.tar.gz
