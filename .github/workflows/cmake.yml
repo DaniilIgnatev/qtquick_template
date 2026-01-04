@@ -60,7 +60,6 @@ jobs:
 
       - name: Package with CPack
         run: cmake --build . --target package
-        working-directory: build
 
       - name: Create GitHub Release and upload packages
         uses: softprops/action-gh-release@v2
