@@ -3,8 +3,7 @@ qt_add_qml_module(ui
     URI ui
     RESOURCE_PREFIX qml
     QML_FILES
-    QuickWidgetTab.qml
-    QuickViewTab.qml
+    QuickView.qml
 )
 
 # Install the QML module and resources
@@ -16,8 +15,7 @@ install(TARGETS ui
 
 # Install QML files to the correct location for deployment
 install(FILES
-    QuickWidgetTab.qml
-    QuickViewTab.qml
+    QuickView.qml
     DESTINATION ${CMAKE_INSTALL_DATADIR}/qml/ui
 )
 

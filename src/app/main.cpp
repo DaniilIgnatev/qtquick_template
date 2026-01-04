@@ -1,51 +1,23 @@
 #include <QApplication>
-#include <QMainWindow>
-#include <QTabWidget>
-#include <QWidget>
-#include <QVBoxLayout>
 #include <QLabel>
-
-#include <QQuickWidget>
-#include <QQuickView>
+#include <QMainWindow>
 #include <QQmlContext>
+#include <QQuickView>
+#include <QQuickWidget>
+#include <QTabWidget>
+#include <QVBoxLayout>
+#include <QWidget>
 
-int main(int argc, char *argv[])
-{
+int main(int argc, char* argv[]) {
     QApplication app(argc, argv);
 
-    QMainWindow mainWindow;
-    QTabWidget* tabs = new QTabWidget(&mainWindow);
-
-    // -------------------------------------------------
-    // TAB 1: Pure QWidget
-    // -------------------------------------------------
-    QWidget* widgetTab = new QWidget();
-    QVBoxLayout* widgetLayout = new QVBoxLayout(widgetTab);
-    widgetLayout->addWidget(new QLabel("This is a pure QWidget tab"));
-    tabs->addTab(widgetTab, "QWidget");
-
-    // -------------------------------------------------
-    // TAB 2: QQuickWidget (QML inside QWidget)
-    // -------------------------------------------------
-    QQuickWidget* quickWidgetTab = new QQuickWidget();
-    quickWidgetTab->setResizeMode(QQuickWidget::SizeRootObjectToView);
-    quickWidgetTab->setSource(QUrl("qrc:/qml/ui/QuickWidgetTab.qml"));
-    tabs->addTab(quickWidgetTab, "QQuickWidget");
-
-    // -------------------------------------------------
-    // TAB 3: QQuickView wrapped with createWindowContainer
-    // -------------------------------------------------
     QQuickView* quickView = new QQuickView();
-    quickView->setSource(QUrl("qrc:/qml/ui/QuickViewTab.qml"));
+    quickView->setSource(QUrl("qrc:/qml/ui/QuickView.qml"));
 
-    QWidget* quickViewContainer =
-        QWidget::createWindowContainer(quickView);
+    QWidget* quickViewContainer = QWidget::createWindowContainer(quickView);
+    QMainWindow mainWindow;
+    mainWindow.setCentralWidget(quickViewContainer);
 
-    tabs->addTab(quickViewContainer, "QQuickView");
-
-    // -------------------------------------------------
-
-    mainWindow.setCentralWidget(tabs);
     mainWindow.resize(600, 400);
     mainWindow.show();
 
