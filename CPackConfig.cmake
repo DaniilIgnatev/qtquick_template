@@ -1,5 +1,0 @@
-set(CPACK_PACKAGE_NAME "qtquick_template")
-set(CPACK_PACKAGE_VERSION "1.0")
-set(CPACK_GENERATOR "TGZ;ZIP")
-set(CPACK_PACKAGE_CONTACT "your@email.com")
-include(CPack)

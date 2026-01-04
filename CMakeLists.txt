@@ -41,6 +41,3 @@ set_target_properties(app PROPERTIES
     MACOSX_BUNDLE TRUE
     WIN32_EXECUTABLE TRUE
 )
-
-# Packaging support
-include(CPackConfig.cmake)
