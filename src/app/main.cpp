@@ -17,7 +17,7 @@ int main(int argc, char* argv[]) {
     registerQmlTypes();
 
     QQuickView* quickView = new QQuickView();
-    quickView->setSource(QUrl("qrc:/qml/ui/QuickView.qml"));
+    quickView->setSource(QUrl("qrc:/qml/ui/RootView.qml"));
 
     QWidget* quickViewContainer = QWidget::createWindowContainer(quickView);
     QMainWindow mainWindow;

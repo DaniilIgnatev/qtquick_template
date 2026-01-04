@@ -17,4 +17,4 @@
 - UI updates when data changes.
 
 ## Functional requirements
-- This is a placeholder.
+- Application is a single view with a "Hello world" text.

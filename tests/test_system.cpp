@@ -12,7 +12,7 @@ class SystemTest : public QObject {
    public:
     SystemTest() {
         m_quickView = new QQuickView();
-        m_quickView->setSource(QUrl("qrc:/qml/ui/QuickView.qml"));
+        m_quickView->setSource(QUrl("qrc:/qml/ui/RootView.qml"));
         m_quickViewContainer = QWidget::createWindowContainer(m_quickView);
     }
 
