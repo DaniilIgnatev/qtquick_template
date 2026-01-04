@@ -13,8 +13,8 @@ This template demonstrates how to use AI-assisted workflows (e.g., GitHub Copilo
 
 ## Getting Started
 ### Prerequisites
-- Qt 6.10+ (with Quick, QuickWidgets, Widgets)
-- CMake 3.22+
+- Qt 6.8.3+ (with Quick, QuickWidgets, Widgets)
+- CMake 3.27+
 - C++17 compiler
 
 ### Build & Run
