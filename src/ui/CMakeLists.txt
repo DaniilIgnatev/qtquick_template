@@ -1,6 +1,7 @@
 qt_add_library(ui STATIC)
 qt_add_qml_module(ui
     URI ui
+    VERSION 1.0
     RESOURCE_PREFIX qml
     QML_FILES
     RootView.qml
