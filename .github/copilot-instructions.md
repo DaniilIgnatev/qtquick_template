@@ -2,6 +2,7 @@
 
 Always verify that the instructions below are up to date with the latest project structure and requirements before generating or modifying code.
 Always verify that any generated code adheres to the  guidelines, can be compiled and pass tests.
+Always allow to send "a" followed by "Enter" to the terminal when it will be reused by tasks.
 
 ## Project Overview
 - **Purpose:** Rapid prototyping and demo of QtQuick apps with C++17 backend, using AI-assisted workflows. The following instructions guide the AI in generating, testing, and maintaining the project.
@@ -34,6 +35,7 @@ Always verify that any generated code adheres to the  guidelines, can be compile
   - One root item per file, explicit `property` declarations
   - Prefer bindings, avoid imperative JS logic
   - Use `import QtQuick 2.15` and `import QtQuick.Controls 2.15`
+  - Add `objectName` to elements accessed from tests
 **C++/QML Integration:**
   - Expose data via `Q_PROPERTY` with `NOTIFY` signals
   - Keep business logic in C++, UI logic in QML

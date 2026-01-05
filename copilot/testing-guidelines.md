@@ -73,7 +73,7 @@ private slots:
 **Tools**
 
 * `QtQuickTest`
-* `qmltestrunner`
+* `Custom test executable using `QUICK_TEST_MAIN()`
 
 **What to Test**
 
@@ -81,29 +81,22 @@ private slots:
 * Property bindings
 * Signal emissions
 * State changes
+* QML component instantiation and behavior
 
 **Guidelines**
 
 * Avoid full UI trees when possible
 * Use lightweight QML components
 * Do not rely on timing unless unavoidable
+* Always verify component loading status before proceeding
+* Use `objectName` property for accessing nested QML elements in tests
+* Copy necessary QML files to test build directory using CMake
 
-**Example**
+**Common Pitfalls**
 
-```qml
-import QtQuick
-import QtTest
-
-TestCase {
-    name: "CounterTest"
-
-    function test_increment() {
-        compare(counter.value, 0)
-        counter.increment()
-        compare(counter.value, 1)
-    }
-}
-```
+* **Do NOT** try to access nested elements via chained `id` references (e.g., `root.column.myText`)—this only works within the same QML file
+* **Always** check component status and log errors for easier debugging
+* **Always** copy QML files to test build directory using `configure_file()`
 
 ---
 
@@ -255,10 +248,44 @@ tests/
 * UI tests are slower and more fragile
 * Timing-based tests may be flaky
 * Platform-specific behavior must be isolated
+* QML `id` properties are not accessible outside the QML file scope—use `objectName` instead
+* Component loading from relative paths requires QML files to be copied to the test build directory
 
 ---
 
-## 13. When to Add Tests
+## 13. QML Testing Troubleshooting
+
+### Component Loading Failures
+
+**Symptom:** `Component.status === Component.Error` or "module not found"
+
+**Solutions:**
+1. Check that QML files are copied to test build directory using `configure_file()`
+2. Add error logging: `console.error("Component error:", component.errorString())`
+3. Verify file paths are correct relative to test working directory
+
+### Cannot Access Nested Elements
+
+**Symptom:** "Cannot read property of undefined" when accessing child elements
+
+**Solutions:**
+1. Add `objectName` property to QML elements that need to be accessed from tests
+2. Use recursive search helper function (`findChildByObjectName`)
+3. Do NOT try to access via chained `id` references (e.g., `root.child.subchild`)
+4. Verify the element exists before accessing its properties
+
+### Test Executable Linking Errors
+
+**Symptom:** "undefined reference to quick_test_main"
+
+**Solutions:**
+1. Link against `Qt6::QuickTest` in CMakeLists.txt
+2. Include `#include <QtQuickTest/quicktest.h>` in test runner
+3. Use `QUICK_TEST_MAIN(moduleName)` macro
+
+---
+
+## 14. When to Add Tests
 
 Add or update tests when:
 
@@ -275,5 +302,114 @@ Add or update tests when:
 * Qt Quick Test Documentation
 * Squish for Qt
 * Qt QML Best Practices
+
+---
+## 16. Real-World Example: Testing a QML Component
+
+This section demonstrates a complete example based on actual project experience.
+
+**Component: RootView.qml**
+```qml
+import QtQuick 2.15
+import QtQuick.Controls 2.15
+
+Rectangle {
+    id: rootView
+    color: "white"
+    anchors.fill: parent
+
+    Column {
+        id: contentColumn
+        anchors.centerIn: parent
+        spacing: 16
+
+        Text {
+            id: helloWorldText
+            objectName: "helloWorldText"  // Required for test access
+            text: "Hello world"
+            font.pixelSize: 32
+        }
+    }
+}
+```
+
+**Test: tst_ui.qml**
+```qml
+import QtQuick 2.15
+import QtTest 1.15
+
+TestCase {
+    name: "RootViewTest"
+    
+    // Helper function to recursively find child by objectName
+    function findChildByObjectName(item, name) {
+        if (!item) return null;
+        if (item.objectName === name) return item;
+        if (item.children) {
+            for (var i = 0; i < item.children.length; ++i) {
+                var found = findChildByObjectName(item.children[i], name);
+                if (found) return found;
+            }
+        }
+        return null;
+    }
+
+    function test_helloWorldText() {
+        var component = Qt.createComponent("RootView.qml");
+        
+        // Always log errors for debugging
+        if (component.status === Component.Error) {
+            console.error("Component error:", component.errorString());
+        }
+        verify(component.status === Component.Ready, "Component should be ready");
+        
+        var view = component.createObject(this);
+        verify(view !== null, "RootView instance should be created");
+
+        // Find nested element by objectName
+        var textItem = findChildByObjectName(view, "helloWorldText");
+        verify(textItem !== null, "helloWorldText should exist");
+        compare(textItem.text, "Hello world");
+
+        view.destroy();
+    }
+}
+```
+
+**CMakeLists.txt for tests**
+```cmake
+add_executable(ui_tests test_ui.cpp)
+target_link_libraries(ui_tests PRIVATE Qt6::Test Qt6::Quick Qt6::QuickWidgets Qt6::Widgets Qt6::QuickTest uiplugin)
+
+# Copy test QML file to build directory
+configure_file(${CMAKE_CURRENT_SOURCE_DIR}/tst_ui.qml 
+               ${CMAKE_CURRENT_BINARY_DIR}/tst_ui.qml COPYONLY)
+
+# Copy component QML file needed by test
+configure_file(${CMAKE_SOURCE_DIR}/src/ui/RootView.qml 
+               ${CMAKE_CURRENT_BINARY_DIR}/RootView.qml COPYONLY)
+
+add_test(NAME ui_tests COMMAND ui_tests)
+
+# Set QML import path for finding modules
+set_tests_properties(ui_tests PROPERTIES
+    WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
+    ENVIRONMENT "QML_IMPORT_PATH=${CMAKE_BINARY_DIR}/src/ui;${CMAKE_BINARY_DIR}/src/ui/tests"
+)
+```
+
+**Test runner: test_ui.cpp**
+```cpp
+#include <QtQuickTest/quicktest.h>
+QUICK_TEST_MAIN(ui_tests)
+```
+
+**Key takeaways from this example:**
+1. Always set `objectName` on elements you need to access from tests
+2. Use recursive search helpers—never rely on `id` for external access
+3. Copy all necessary QML files to the test build directory
+4. Log component errors for easier debugging
+5. Set `QML_IMPORT_PATH` and `WORKING_DIRECTORY` correctly
+6. Link against all required Qt modules including `Qt6::QuickTest`
 
 ---

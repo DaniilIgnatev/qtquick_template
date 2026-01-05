@@ -82,6 +82,12 @@ This is a demo-focused project, not production-grade software.
 - Avoid deep nesting of states
 - Avoid JavaScript-heavy logic in QML
 
+### Testability
+- Add `objectName` property to elements that need to be accessed from tests
+- Use descriptive `objectName` values (e.g., `objectName: "helloWorldText"`)
+- Keep QML components simple and testable in isolation
+- Avoid complex nested structures when possible
+
 ### Layout & UI
 - Prefer `Column`, `Row`, `Grid`, and `Layout` types
 - Avoid hard-coded sizes unless required for the demo
@@ -91,6 +97,27 @@ This is a demo-focused project, not production-grade software.
 - Use `onSignalName` handlers sparingly
 - Avoid complex logic inside signal handlers
 - Forward logic to C++ when it becomes non-trivial
+
+---
+
+## QML Module Setup (CMake)
+
+### For Application QML Modules
+- Use `qt_add_library()` followed by `qt_add_qml_module()`
+- Specify a clear URI (e.g., `URI ui`)
+- Set appropriate `VERSION` and `RESOURCE_PREFIX`
+
+**Example:**
+```cmake
+qt_add_library(ui STATIC)
+qt_add_qml_module(ui
+    URI ui
+    VERSION 1.0
+    RESOURCE_PREFIX qml
+    QML_FILES
+        RootView.qml
+)
+```
 
 ---
 
