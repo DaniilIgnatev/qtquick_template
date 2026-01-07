@@ -9,6 +9,8 @@ This template demonstrates how to use AI-assisted workflows (e.g., GitHub Copilo
 - C++17 backend logic
 - Example QML and C++ unit tests
 - Cross-platform: Desktop & WebAssembly
+- Stepwise requirements analysis pipeline (see copilot/requirements_analysis/)
+- YAML-driven requirements artifacts for automation
 - Coding/testing guidelines included
 
 ## Getting Started
@@ -16,6 +18,18 @@ This template demonstrates how to use AI-assisted workflows (e.g., GitHub Copilo
 - Qt 6.8.3+ (with Quick, QuickWidgets, Widgets)
 - CMake 3.27+
 - C++17 compiler
+
+### Requirements Analysis Pipeline
+The requirements pipeline is in `copilot/requirements_analysis/` and consists of:
+- 1_gathering: Stakeholder/context input (Markdown or images)
+- 2_analysis: Raw requirements to structured YAML
+- 3_specification: Detailed specs and acceptance criteria (YAML)
+- 4_validation: Validation results (YAML)
+- 5_final: Finalized requirements/specs (YAML)
+
+Each step has:
+- `input.yaml`/`input.md` and `output.yaml` (see each step's instructions.md)
+- Example subfolder for sample input/output
 
 ### Build & Run
 ```sh
@@ -34,7 +48,12 @@ ctest --test-dir build
 - `src/ui/` – QML UI components
 - `src/domain/` – Business logic, models
 - `tests/` – Top-level test config
+- `copilot/requirements_analysis/` – Stepwise requirements pipeline (see instructions.md in each step)
 - `copilot/` – Guidelines and requirements
+
+## Requirements Analysis Pipeline
+
+See [copilot/requirements_analysis/](copilot/requirements_analysis/) for the full stepwise requirements pipeline, YAML formats, and example-driven workflow. Each step's instructions.md describes the required input/output and formatting.
 
 ## C++/QML Type Registration
 
