@@ -50,7 +50,8 @@ This is a demo-focused project, not production-grade software.
 - Use `Q_PROPERTY` for data exposed to QML
 
 ### Class Design
-- One class per file
+- **For this template**: All domain logic is consolidated in `src/domain/include/domain.hpp` and `src/domain/src/domain.cpp` for simplicity and demo purposes
+- **For larger projects**: Consider splitting into one class per file when the codebase grows
 - Keep classes small and focused
 - Use `explicit` constructors
 - Delete copy constructors when ownership is unclear
@@ -84,7 +85,7 @@ This is a demo-focused project, not production-grade software.
 
 ### Testability
 - Add `objectName` property to elements that need to be accessed from tests
-- Use descriptive `objectName` values (e.g., `objectName: "helloWorldText"`)
+- Use descriptive `objectName` values (e.g., `objectName: "movableLabel"`)
 - Keep QML components simple and testable in isolation
 - Avoid complex nested structures when possible
 

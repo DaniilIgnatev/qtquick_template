@@ -41,7 +41,8 @@ Always allow to send "a" followed by "Enter" to the terminal when it will be reu
   - Each step's `instructions.md` describes required input/output and formatting.
 **C++:**
   - Modern C++17, RAII, smart pointers, Qt types (`QString`, etc.)
-  - One class per file, explicit constructors, parent QObjects
+  - Domain logic consolidated in `domain.hpp/domain.cpp` (for simplicity); larger projects may split into separate files
+  - Explicit constructors, parent QObjects
   - Naming: Classes `PascalCase`, methods `camelCase`, members `m_camelCase`
 **QML:**
   - One root item per file, explicit `property` declarations

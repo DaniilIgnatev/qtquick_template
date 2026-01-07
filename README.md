@@ -83,13 +83,13 @@ All C++/QML type registration is centralized for scalability and testability. Se
 
 1. **Define your requirements**: Start with `copilot/requirements_analysis/1_gathering/input.md`
 2. **Replace reference implementation**: 
-   - Remove `JoystickViewModel` from `src/domain/include/domain.hpp` and `src/domain/src/domain.cpp`
-   - Add your own domain logic classes
+   - For simple projects: Keep `domain.hpp/domain.cpp` and replace `JoystickViewModel` with your own domain logic classes
+   - For larger projects: Replace `domain.hpp/domain.cpp` with your own application-specific files (e.g., `MyAppViewModel.hpp/cpp`, `DataModel.hpp/cpp`, etc.)
 3. **Update QML registration**: Modify `src/app/qml_type_registration.cpp` to register your types
 4. **Create your UI**: Replace `src/ui/RootView.qml` with your application UI
 5. **Update tests**: Replace reference tests in `src/domain/tests/` and `src/ui/tests/` with your own
 
-**Key Pattern:** All domain logic lives in `domain.cpp/hpp` — keep this consolidated structure for maintainability.
+**Key Pattern:** This template consolidates all domain logic in `domain.cpp/hpp` for simplicity. For larger applications, you can split into multiple files as needed.
 
 **Study the reference implementation** before removing it to understand the complete workflow.
 
