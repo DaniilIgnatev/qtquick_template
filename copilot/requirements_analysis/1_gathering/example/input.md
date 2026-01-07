@@ -1,12 +1,15 @@
 # Example Input: Requirements Gathering
 
 Stakeholder notes:
-- "We need a simple desktop app to demonstrate UI reactivity."
-- "The app should show a window with a label and a button."
-- "When the button is clicked, the label should update to say 'Hello, world!'"
+- "We want a simple desktop app to demonstrate UI reactivity and basic interaction."
+- "The app should show a window with a 'Hello, world!' label."
+- "There should be four directional buttons (up, down, left, right) to move the label like a joystick."
+- "A separate 'Center' button should return the label to the center of the window."
+- "The UI should be clean, centered, and intuitive."
 
 Context:
-- The app is for demo purposes only.
-- The UI should be clean and centered.
+- The app is for demo and educational purposes only.
+- The label should visibly move in response to button presses.
+- The layout should make it obvious which button does what.
 
-(Optional) UI sketch: input_images/hello_world_sketch.png
+(Optional) UI sketch: input_images/sketch.png

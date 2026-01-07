@@ -1,5 +1,11 @@
 # QtQuick Template Project with AI
 
+[![CMake Build & Test](https://github.com/USERNAME/qtquick_template/actions/workflows/cmake.yml/badge.svg)](https://github.com/USERNAME/qtquick_template/actions/workflows/cmake.yml)
+
+## Version
+**Current Version:** 1.0.0  
+See [releases](https://github.com/USERNAME/qtquick_template/releases) for version history and release notes.
+
 ## Overview
 This template demonstrates how to use AI-assisted workflows (e.g., GitHub Copilot) to generate QtQuick applications with C++ backend logic. It is designed for rapid prototyping, demos, and educational purposes.
 
@@ -12,7 +18,7 @@ This template demonstrates how to use AI-assisted workflows (e.g., GitHub Copilo
 - Stepwise requirements analysis pipeline (see copilot/requirements_analysis/)
 - YAML-driven requirements artifacts for automation
 - Coding/testing guidelines included
-- **Reference: Joystick Demo** – C++/QML MVVM, joystick-style UI, full requirements pipeline, and test coverage
+- **Working Reference Example**: Joystick demo showing complete MVVM implementation
 
 ## Getting Started
 ### Prerequisites
@@ -22,11 +28,13 @@ This template demonstrates how to use AI-assisted workflows (e.g., GitHub Copilo
 
 ### Requirements Analysis Pipeline
 The requirements pipeline is in `copilot/requirements_analysis/` and consists of:
-- 1_gathering: Stakeholder/context input (Markdown or images)
-- 2_analysis: Raw requirements to structured YAML
-- 3_specification: Detailed specs and acceptance criteria (YAML)
-- 4_validation: Validation results (YAML)
-- 5_final: Finalized requirements/specs (YAML)
+- **1_gathering**: Stakeholder/context input (**Markdown** for initial unstructured input)
+- **2_analysis**: Raw requirements to structured format (**YAML** input/output)
+- **3_specification**: Detailed specs and acceptance criteria (**YAML** input/output)
+- **4_validation**: Validation results (**YAML** input/output)
+- **5_final**: Finalized requirements/specs (**YAML** input/output)
+
+**File Format Convention:** Step 1 uses `.md` for unstructured input; all subsequent steps use `.yaml` only.
 
 Each step has:
 - `input.yaml`/`input.md` and `output.yaml` (see each step's instructions.md)
@@ -62,14 +70,28 @@ All C++/QML type registration is centralized for scalability and testability. Se
 
 - [copilot/cpp-qml-type-registration.md](copilot/cpp-qml-type-registration.md) — for the full pattern and test integration instructions.
 
-## Reference Example: Joystick Demo
+## Template Usage Pattern
 
-This template includes a full-featured joystick demo:
-- Requirements pipeline artifacts for a joystick UI (see copilot/requirements_analysis/)
-- C++ domain logic (JoystickViewModel) consolidated in domain.cpp/hpp with Q_PROPERTY and Q_INVOKABLE
-- QML UI with objectName for testability
-- Consolidated test suite in test_domain.cpp (all tests passing)
-- See `src/domain/include/domain.hpp` and `src/ui/RootView.qml`
+**This template includes a working reference implementation (JoystickViewModel) that demonstrates:**
+- Complete C++/QML MVVM pattern
+- Q_PROPERTY bindings for reactive UI
+- Q_INVOKABLE methods for QML interaction
+- Comprehensive test coverage (C++, QML, system integration)
+- Clean code organization in `domain.cpp/hpp`
+
+**To use this template for your application:**
+
+1. **Define your requirements**: Start with `copilot/requirements_analysis/1_gathering/input.md`
+2. **Replace reference implementation**: 
+   - Remove `JoystickViewModel` from `src/domain/include/domain.hpp` and `src/domain/src/domain.cpp`
+   - Add your own domain logic classes
+3. **Update QML registration**: Modify `src/app/qml_type_registration.cpp` to register your types
+4. **Create your UI**: Replace `src/ui/RootView.qml` with your application UI
+5. **Update tests**: Replace reference tests in `src/domain/tests/` and `src/ui/tests/` with your own
+
+**Key Pattern:** All domain logic lives in `domain.cpp/hpp` — keep this consolidated structure for maintainability.
+
+**Study the reference implementation** before removing it to understand the complete workflow.
 
 **Key Pattern:** All domain logic lives in domain.cpp/hpp - simply replace JoystickViewModel with your own logic for new use cases.
 

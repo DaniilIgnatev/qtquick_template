@@ -7,7 +7,8 @@ Rectangle {
     color: "white"
     anchors.fill: parent
 
-    // JoystickViewModel: Current reference implementation for demo
+    // JoystickViewModel: Reference implementation example
+    // Replace this with your own ViewModel based on requirements
     JoystickViewModel {
         id: viewModel
     }
@@ -18,8 +19,8 @@ Rectangle {
         spacing: 32
 
         Text {
-            id: helloWorldText
-            objectName: "helloWorldText"
+            id: movableLabel
+            objectName: "movableLabel"
             text: viewModel.labelText
             font.pixelSize: 32
             color: "#222"

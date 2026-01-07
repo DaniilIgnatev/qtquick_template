@@ -1,6 +1,7 @@
 #include "domain.hpp"
 
-// JoystickViewModel: Reference implementation for interactive demo
+// JoystickViewModel: Reference implementation example
+// Replace this with your own domain logic based on requirements
 JoystickViewModel::JoystickViewModel(QObject* parent)
     : QObject(parent), m_labelX(0.0), m_labelY(0.0), m_labelText("Hello, world!") {}
 

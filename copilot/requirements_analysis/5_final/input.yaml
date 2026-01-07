@@ -1,3 +1,15 @@
-# Validated Specs Input
-
-Copy or reference the output from 4_validation/validation_report.md here for final documentation.
+# Example Input: Finalization Step
+# Copy of output_example.yaml from 4_validation
+validation:
+  - requirement: RQ-1
+    method: Inspect UI at runtime
+    result: Pass
+  - requirement: RQ-2
+    method: Check default label text
+    result: Pass
+  - requirement: RQ-3
+    method: Click button and observe label changes to "Hello, world!"
+    result: Pass
+  - requirement: RQ-4
+    method: Visual inspection of layout
+    result: Pass

@@ -28,8 +28,8 @@ TestCase {
         var view = component.createObject(this);
         verify(view !== null, "RootView instance should be created");
 
-        var textItem = findChildByObjectName(view, "helloWorldText");
-        verify(textItem !== null, "helloWorldText should exist");
+        var textItem = findChildByObjectName(view, "movableLabel");
+        verify(textItem !== null, "movableLabel should exist");
         compare(textItem.text, "Hello, world!");
 
         var upButton = findChildByObjectName(view, "upButton");

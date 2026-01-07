@@ -8,6 +8,7 @@
 #include "../domain/include/domain.hpp"
 
 void registerQmlTypes() {
-    // Example: Register a C++ type for QML
+    // Register QML types - this is a reference example
+    // Replace with your own types based on requirements
     qmlRegisterType<JoystickViewModel>("App.Domain", 1, 0, "JoystickViewModel");
 }

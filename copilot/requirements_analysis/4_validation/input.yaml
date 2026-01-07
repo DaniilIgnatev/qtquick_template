@@ -1,3 +1,15 @@
-# Specs Input
-
-Copy or reference the output from 3_specification/specs.md here for validation.
+# Example Input: Validation Step
+# Copy of specs.yaml from 3_specification
+functional:
+  - id: RQ-1
+    spec: The main window contains a label and a button.
+  - id: RQ-2
+    spec: The label displays "Welcome!" by default.
+  - id: RQ-3
+    spec: When the button is clicked, the label text changes to "Hello, world!".
+non_functional:
+  - id: RQ-4
+    spec: The UI elements are centered and use a clean layout.
+acceptance_criteria:
+  - The app starts with a centered label and button.
+  - Clicking the button updates the label text to "Hello, world!".

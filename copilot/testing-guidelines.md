@@ -312,11 +312,16 @@ This section demonstrates a complete example based on actual project experience.
 ```qml
 import QtQuick 2.15
 import QtQuick.Controls 2.15
+import App.Domain 1.0
 
 Rectangle {
     id: rootView
     color: "white"
     anchors.fill: parent
+
+    JoystickViewModel {
+        id: viewModel
+    }
 
     Column {
         id: contentColumn
@@ -324,10 +329,18 @@ Rectangle {
         spacing: 16
 
         Text {
-            id: helloWorldText
-            objectName: "helloWorldText"  // Required for test access
-            text: "Hello world"
+            id: movableLabel
+            objectName: "movableLabel"  // Required for test access
+            text: viewModel.labelText
             font.pixelSize: 32
+            x: viewModel.labelX
+            y: viewModel.labelY
+        }
+
+        Button {
+            objectName: "upButton"
+            text: "↑"
+            onClicked: viewModel.moveUp()
         }
     }
 }
@@ -354,7 +367,7 @@ TestCase {
         return null;
     }
 
-    function test_helloWorldText() {
+    function test_movableLabel() {
         var component = Qt.createComponent("RootView.qml");
         
         // Always log errors for debugging
@@ -367,9 +380,9 @@ TestCase {
         verify(view !== null, "RootView instance should be created");
 
         // Find nested element by objectName
-        var textItem = findChildByObjectName(view, "helloWorldText");
-        verify(textItem !== null, "helloWorldText should exist");
-        compare(textItem.text, "Hello world");
+        var textItem = findChildByObjectName(view, "movableLabel");
+        verify(textItem !== null, "movableLabel should exist");
+        compare(textItem.text, "Hello, world!");
 
         view.destroy();
     }

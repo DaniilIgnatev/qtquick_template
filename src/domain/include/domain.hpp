@@ -3,7 +3,8 @@
 #include <QObject>
 #include <QString>
 
-// JoystickViewModel: Reference implementation for interactive demo
+// JoystickViewModel: Reference implementation example
+// Replace this with your own domain logic based on requirements
 class JoystickViewModel : public QObject {
     Q_OBJECT
     Q_PROPERTY(qreal labelX READ labelX WRITE setLabelX NOTIFY labelXChanged)

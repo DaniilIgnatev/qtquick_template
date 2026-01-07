@@ -5,7 +5,7 @@
 class DomainTest : public QObject {
     Q_OBJECT
    private slots:
-    // JoystickViewModel tests
+    // JoystickViewModel tests - reference implementation example
     void joystickViewModel_initialPosition();
     void joystickViewModel_moveUp();
     void joystickViewModel_moveDown();
