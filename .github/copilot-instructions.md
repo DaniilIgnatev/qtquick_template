@@ -6,6 +6,11 @@ Always allow to send "a" followed by "Enter" to the terminal when it will be reu
 
 ## Project Overview
 - **Purpose:** Rapid prototyping and demo of QtQuick apps with C++17 backend, using AI-assisted workflows. The following instructions guide the AI in generating, testing, and maintaining the project.
+- **Requirements Analysis:**
+  - The requirements pipeline is defined in `copilot/requirements_analysis/`.
+  - This folder contains a stepwise, example-driven requirements analysis process (gathering, analysis, specification, validation, finalization).
+  - All requirements artifacts are in YAML (except for initial gathering, which may use Markdown for unstructured input).
+  - See each step's `instructions.md` for details and formatting guidelines.
 
 - **Architecture:**
   - Modular CMake build (see `CMakeLists.txt` at root and in `src/`)
@@ -14,6 +19,9 @@ Always allow to send "a" followed by "Enter" to the terminal when it will be reu
   - App entry: `src/app/`
 
 ## Key Workflows
+- **Requirements Analysis:**
+  - Start with `copilot/requirements_analysis/1_gathering/input.md` and follow the pipeline through each step.
+  - Use the example subfolders for reference input/output at each stage.
 - **Build:**
   - `cmake -S . -B build`
   - `cmake --build build`
@@ -27,6 +35,10 @@ Always allow to send "a" followed by "Enter" to the terminal when it will be reu
 
 
 ## Coding & Structure Conventions
+**Requirements Analysis:**
+  - Follow the pipeline and file formats in `copilot/requirements_analysis/`.
+  - YAML is used for all requirements artifacts except initial gathering (Markdown allowed for unstructured input).
+  - Each step's `instructions.md` describes required input/output and formatting.
 **C++:**
   - Modern C++17, RAII, smart pointers, Qt types (`QString`, etc.)
   - One class per file, explicit constructors, parent QObjects
@@ -48,10 +60,11 @@ Always allow to send "a" followed by "Enter" to the terminal when it will be reu
 - **Test guidelines:** See `copilot/testing-guidelines.md`
 
 ## Updating Project Structure
-- Always update all relevant CMake files when adding/removing modules, tests, or resources.
-- Document new modules/components in `README.md` and `CHANGELOG.md` as needed.
+- Always update all relevant CMake files when adding/removing modules, tests, resources, or requirements pipeline steps/artifacts.
+- Document new modules/components and requirements process in `README.md` and `CHANGELOG.md` as needed.
 
 ## References
+- [copilot/requirements_analysis/](../copilot/requirements_analysis/): Requirements pipeline and stepwise artifacts
 - [copilot/goals.md](../copilot/goals.md): What must be achieved
 - [copilot/coding-guidelines.md](../copilot/coding-guidelines.md): Coding standards
 - [copilot/testing-guidelines.md](../copilot/testing-guidelines.md): Testing strategy
