@@ -1,3 +1,48 @@
+
 # Structured Requirements
 
-Organize, clarify, and prioritize requirements here.
+requirements:
+	- id: RQ-1
+    description: Application displays a window with a 'Hello, world!' label.
+    priority: high
+    rationale: Core demo component
+    source: stakeholder
+    status: accepted
+  - id: RQ-2
+    description: Four directional buttons (up, down, left, right) move the label.
+    priority: high
+    rationale: Core joystick interaction functionality
+    source: stakeholder
+    status: accepted
+  - id: RQ-3
+    description: A 'Center' button returns the label to the center position.
+    priority: high
+    rationale: Reset functionality for demo
+    source: stakeholder
+    status: accepted
+  - id: RQ-4
+    description: Label moves visibly in response to directional button presses.
+    priority: high
+    rationale: Demonstrates UI reactivity
+    source: stakeholder
+    status: accepted
+  - id: RQ-5
+    description: UI is clean, centered, and intuitive.
+    priority: medium
+    rationale: Improves demo aesthetics and usability
+    source: stakeholder
+    status: accepted
+  - id: RQ-6
+    description: Layout makes it obvious which button controls which direction.
+    priority: medium
+    rationale: User experience clarity
+    source: context
+    status: accepted
+  - id: RQ-7
+    description: Application is for demo and educational purposes only.
+    priority: low
+    rationale: No production requirements
+    source: context
+    status: accepted
+  - id: RQ-8
+    description: (Optional) UI sketch provided as input_images/hello_world_joystick_sketch.png.

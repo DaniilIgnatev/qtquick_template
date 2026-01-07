@@ -1,5 +1,7 @@
+
 add_library(domain
     ${CMAKE_CURRENT_SOURCE_DIR}/src/domain.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/include/domain.hpp
 )
 
 target_include_directories(domain PUBLIC
@@ -13,6 +15,6 @@ target_link_libraries(domain
     Qt6::Widgets
 )
 
-if (BUILD_TESTING)
+if(BUILD_TESTING)
     add_subdirectory(tests)
 endif()

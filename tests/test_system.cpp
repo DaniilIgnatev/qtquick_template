@@ -6,11 +6,13 @@
 #include <QTabWidget>
 #include <QVBoxLayout>
 #include <QtTest/QtTest>
+#include "../src/app/qml_type_registration.hpp"
 
 class SystemTest : public QObject {
     Q_OBJECT
    public:
     SystemTest() {
+        registerQmlTypes();
         m_quickView = new QQuickView();
         m_quickView->setSource(QUrl("qrc:/qml/ui/RootView.qml"));
         m_quickViewContainer = QWidget::createWindowContainer(m_quickView);

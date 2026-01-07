@@ -1,3 +1,21 @@
+
 # Final Requirements Document
 
-Finalize and document the agreed requirements and specifications here.
+final_requirements:
+	- id: RQ-1
+    description: Application displays a window with a 'Hello, world!' label that can move.
+  - id: RQ-2
+    description: Four directional buttons (up, down, left, right) move the label like a joystick.
+  - id: RQ-3
+    description: A 'Center' button returns the label to the center position.
+  - id: RQ-4
+    description: Label moves visibly in response to button presses.
+  - id: RQ-5
+    description: UI is clean, centered, and intuitive with clear directional layout.
+  - id: RQ-6
+    description: Layout makes it obvious which button controls which direction.
+  - id: RQ-7
+    description: Application is for demo and educational purposes only.
+  - id: RQ-8
+    description: (Optional) UI sketch provided as input_images/hello_world_joystick_sketch.png.
+notes: All requirements validated and ready for implementation in the Joystick Hello World demo application.

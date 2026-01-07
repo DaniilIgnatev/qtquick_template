@@ -1,3 +1,26 @@
+
 # Validation Report
 
-Document validation results, feedback, and issues found here.
+validation:
+	- requirement: RQ-1
+    method: Inspect UI at runtime for label presence and text
+    result: Pass
+  - requirement: RQ-2
+    method: Verify four directional buttons are arranged in cross pattern
+    result: Pass
+  - requirement: RQ-3
+    method: Verify Center button is present and positioned correctly
+    result: Pass
+  - requirement: RQ-4
+    method: Click each directional button and observe label movement
+    result: Pass
+  - requirement: RQ-5
+    method: Click Center button and verify label returns to center
+    result: Pass
+  - requirement: RQ-6
+    method: Visual inspection of button layout clarity
+    result: Pass
+  - requirement: RQ-7
+    method: Review context and documentation
+    result: Pass
+  - requirement: RQ-8

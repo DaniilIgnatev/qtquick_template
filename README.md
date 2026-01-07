@@ -12,6 +12,7 @@ This template demonstrates how to use AI-assisted workflows (e.g., GitHub Copilo
 - Stepwise requirements analysis pipeline (see copilot/requirements_analysis/)
 - YAML-driven requirements artifacts for automation
 - Coding/testing guidelines included
+- **Reference: Joystick Demo** – C++/QML MVVM, joystick-style UI, full requirements pipeline, and test coverage
 
 ## Getting Started
 ### Prerequisites
@@ -60,6 +61,17 @@ See [copilot/requirements_analysis/](copilot/requirements_analysis/) for the ful
 All C++/QML type registration is centralized for scalability and testability. See:
 
 - [copilot/cpp-qml-type-registration.md](copilot/cpp-qml-type-registration.md) — for the full pattern and test integration instructions.
+
+## Reference Example: Joystick Demo
+
+This template includes a full-featured joystick demo:
+- Requirements pipeline artifacts for a joystick UI (see copilot/requirements_analysis/)
+- C++ domain logic (JoystickViewModel) consolidated in domain.cpp/hpp with Q_PROPERTY and Q_INVOKABLE
+- QML UI with objectName for testability
+- Consolidated test suite in test_domain.cpp (all tests passing)
+- See `src/domain/include/domain.hpp` and `src/ui/RootView.qml`
+
+**Key Pattern:** All domain logic lives in domain.cpp/hpp - simply replace JoystickViewModel with your own logic for new use cases.
 
 ## Usage as a Template
 - Fork or copy this repo

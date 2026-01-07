@@ -5,7 +5,9 @@
 
 #include <QtQml/qqml.h>
 
+#include "../domain/include/domain.hpp"
+
 void registerQmlTypes() {
     // Example: Register a C++ type for QML
-    // qqmlRegisterType<CounterModel>("App.Domain", 1, 0, "CounterModel");
+    qmlRegisterType<JoystickViewModel>("App.Domain", 1, 0, "JoystickViewModel");
 }

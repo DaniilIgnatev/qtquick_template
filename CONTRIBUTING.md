@@ -15,9 +15,11 @@ Thank you for considering contributing!
 - Update the changelog for significant changes.
 - Describe your changes clearly in the PR.
 
-## Generated vs Manual Code
-- Keep generated code in separate files/folders as described in documentation.
-- Manual code should be easy to tune and extend.
+## Code Organization
+- Domain logic should be in `src/domain/` (domain.cpp/hpp)
+- UI components in `src/ui/` (QML files)
+- Tests consolidated per module (e.g., test_domain.cpp for all domain tests)
+- All C++ types for QML must be registered in `src/app/qml_type_registration.cpp`
 
 ## License
 By contributing, you agree your code will be released under the MIT License.
