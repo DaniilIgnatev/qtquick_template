@@ -1,0 +1,33 @@
+{
+    "use_cases": [
+        {
+            "id": "UC1",
+            "title": "View Sales Overview",
+            "actor": "Manager",
+            "precondition": "User logged in",
+            "main_flow": [
+                "System fetches sales data",
+                "System renders chart and top products table"
+            ],
+            "postcondition": "User sees summary"
+        }
+    ],
+    "ui_model": {
+        "screens": [
+            {
+                "id": "S1",
+                "title": "Dashboard",
+                "widgets": [
+                    {
+                        "type": "Chart",
+                        "binding": "salesData"
+                    },
+                    {
+                        "type": "Table",
+                        "binding": "topProducts"
+                    }
+                ]
+            }
+        ]
+    }
+}

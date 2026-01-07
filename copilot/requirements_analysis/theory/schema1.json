@@ -1,0 +1,73 @@
+{
+    "project": {
+        "name": "Sales Analytics Dashboard",
+        "version": "1.0"
+    },
+    "actors": [
+        {
+            "id": "user",
+            "role": "Manager",
+            "goals": [
+                "View sales",
+                "Export reports"
+            ]
+        }
+    ],
+    "functional_requirements": [
+        {
+            "id": "FR1",
+            "description": "Display total sales and revenue chart"
+        },
+        {
+            "id": "FR2",
+            "description": "Allow filtering by date range"
+        },
+        {
+            "id": "FR3",
+            "description": "Enable PDF export"
+        }
+    ],
+    "non_functional_requirements": [
+        {
+            "id": "NFR1",
+            "type": "Performance",
+            "description": "Load charts in <2s"
+        },
+        {
+            "id": "NFR2",
+            "type": "Usability",
+            "description": "Responsive on mobile"
+        }
+    ],
+    "ui_elements": [
+        {
+            "type": "Chart",
+            "data_source": "salesData",
+            "properties": [
+                "bar",
+                "monthly"
+            ]
+        },
+        {
+            "type": "DatePicker",
+            "binding": "filterDateRange"
+        },
+        {
+            "type": "Button",
+            "action": "exportToPDF"
+        }
+    ],
+    "data_entities": [
+        {
+            "name": "Sales",
+            "fields": [
+                "product",
+                "revenue",
+                "quantity"
+            ]
+        }
+    ],
+    "constraints": [
+        "All UI elements must comply with WCAG 2.1 AA"
+    ]
+}
