@@ -4,40 +4,47 @@ This document describes a generic, step-by-step pipeline for requirements analys
 
 ## Pipeline Overview
 
-| Step | Folder                          | Input File                      | Output File                       |
-|------|---------------------------------|---------------------------------|-----------------------------------|
-| 1    | 1_gathering                     | input_sources.md                | raw_requirements.md               |
-| 2    | 2_analysis                      | raw_requirements_input.md        | structured_requirements.md        |
-| 3    | 3_specification                 | requirements_input.md            | specs.md                          |
-| 4    | 4_validation                    | specs_input.md                   | validation_report.md              |
-| 5    | 5_final                         | validated_specs_input.md         | requirements_final.md             |
+
+| Step | Folder          | Input File                   | Purpose of Input File                                                                 | Output File                |
+|------|-----------------|------------------------------|--------------------------------------------------------------------------------------|----------------------------|
+| 1    | 1_gathering     | input_sources.md             | Collects all initial sources: stakeholder notes, sketches, and context                | raw_requirements.md        |
+|      |                 | images/                      | (Optional) UI sketches to be translated into text requirements                        |                            |
+| 2    | 2_analysis      | raw_requirements_input.md    | Copy/reference of raw requirements for analysis, clarification, and prioritization    | structured_requirements.md |
+| 3    | 3_specification | requirements_input.md        | Copy/reference of structured requirements for detailed specification                  | specs.md                   |
+| 4    | 4_validation    | specs_input.md               | Copy/reference of specifications for validation planning and execution                | validation_report.md       |
+| 5    | 5_final         | validated_specs_input.md      | Copy/reference of validated specs for final documentation and sign-off                | requirements_final.md      |
 
 ## Step-by-Step Instructions
 
+
+
+
 ### 1. Requirements Gathering (`1_gathering`)
-- **Purpose:** Collect initial requirements from various sources.
-- **Input:** `input_sources.md` — Describe sources (e.g., interviews, surveys).
-- **Output:** `raw_requirements.md` — List all unprocessed requirements.
+- See [1_gathering/instructions.md](1_gathering/instructions.md) for step details.
+
+
+
 
 ### 2. Requirements Analysis (`2_analysis`)
-- **Purpose:** Clarify, categorize, and prioritize requirements.
-- **Input:** `raw_requirements_input.md` — Copy or reference `1_gathering/raw_requirements.md`.
-- **Output:** `structured_requirements.md` — Organized and prioritized requirements.
+- See [2_analysis/instructions.md](2_analysis/instructions.md) for step details.
+
+
+
 
 ### 3. Specification (`3_specification`)
-- **Purpose:** Translate structured requirements into actionable specifications.
-- **Input:** `requirements_input.md` — Copy or reference `2_analysis/structured_requirements.md`.
-- **Output:** `specs.md` — Functional and non-functional specifications.
+- See [3_specification/instructions.md](3_specification/instructions.md) for step details.
+
+
+
 
 ### 4. Validation (`4_validation`)
-- **Purpose:** Validate specifications for completeness and feasibility.
-- **Input:** `specs_input.md` — Copy or reference `3_specification/specs.md`.
-- **Output:** `validation_report.md` — Document validation results and feedback.
+- See [4_validation/instructions.md](4_validation/instructions.md) for step details.
+
+
+
 
 ### 5. Documentation/Finalization (`5_final`)
-- **Purpose:** Finalize and document the agreed requirements and specifications.
-- **Input:** `validated_specs_input.md` — Copy or reference `4_validation/validation_report.md`.
-- **Output:** `requirements_final.md` — Final requirements/specifications document.
+- See [5_final/instructions.md](5_final/instructions.md) for step details.
 
 ## Notes
 - Each output file should be used as the input for the next step (copy or reference as needed).

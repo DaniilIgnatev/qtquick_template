@@ -1,0 +1,21 @@
+requirements:
+  - id: RQ-1
+    description: Application displays a window with a label and a button.
+    priority: high
+    rationale: Core demo functionality
+    source: stakeholder
+  - id: RQ-2
+    description: Label shows a default message.
+    priority: high
+    rationale: Ensures initial state is clear
+    source: stakeholder
+  - id: RQ-3
+    description: Button click updates label message to 'Hello, world!'.
+    priority: high
+    rationale: Demonstrates UI reactivity
+    source: stakeholder
+  - id: RQ-4
+    description: UI is visually clear and centered.
+    priority: medium
+    rationale: Improves demo aesthetics
+    source: context

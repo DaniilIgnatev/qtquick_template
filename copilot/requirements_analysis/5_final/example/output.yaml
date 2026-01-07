@@ -1,0 +1,11 @@
+# Example: Final Step
+final_requirements:
+  - id: RQ-1
+    description: Application displays a window with a label and a button.
+  - id: RQ-2
+    description: Label shows a default message.
+  - id: RQ-3
+    description: Button click updates label message to "Hello, world!".
+  - id: RQ-4
+    description: UI is visually clear and centered.
+notes: All requirements validated and implemented in the Hello World demo application.
