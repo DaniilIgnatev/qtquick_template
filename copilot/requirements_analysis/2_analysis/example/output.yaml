@@ -1,26 +1,50 @@
-# Example: Analysis Step
+# Analysis Step Output
 requirements:
   - id: RQ-1
-    description: Application displays a window with a label and a button.
+    description: Application displays a window with a 'Hello, world!' label that can move.
     priority: high
     rationale: Core demo functionality
     source: stakeholder
     status: accepted
   - id: RQ-2
-    description: Label shows a default message.
+    description: Four directional buttons (up, down, left, right) arranged in cross pattern.
     priority: high
-    rationale: Ensures initial state is clear
+    rationale: Demonstrates joystick-style interaction with intuitive layout
     source: stakeholder
     status: accepted
   - id: RQ-3
-    description: Button click updates label message to 'Hello, world!'.
+    description: Separate 'Center' button returns label to initial center position.
     priority: high
-    rationale: Demonstrates UI reactivity
+    rationale: Provides reset functionality
     source: stakeholder
     status: accepted
   - id: RQ-4
-    description: UI is visually clear and centered.
-    priority: medium
-    rationale: Improves demo aesthetics
+    description: Label position updates visibly with each button press.
+    priority: high
+    rationale: Visual feedback for user interaction
     source: context
     status: accepted
+  - id: RQ-5
+    description: UI is clean, centered, and uses consistent spacing.
+    priority: medium
+    rationale: Improves demo aesthetics and usability
+    source: context
+    status: accepted
+  - id: RQ-6
+    description: Directional buttons use arrow symbols (↑↓←→) for clarity.
+    priority: medium
+    rationale: Educational clarity and visual recognition
+    source: context
+    status: accepted
+  - id: RQ-7
+    description: App is for demo and educational purposes only (non-production).
+    priority: low
+    rationale: Sets expectations for production readiness
+    source: context
+    status: accepted
+  - id: RQ-8
+    description: (Optional) UI sketch provided as input_images/sketch.png.
+    priority: low
+    rationale: Visual reference for implementation
+    source: context
+    status: deferred

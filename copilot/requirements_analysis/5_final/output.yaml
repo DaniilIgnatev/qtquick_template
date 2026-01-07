@@ -1,2 +1,35 @@
-final:
-  # Add finalized requirements here
+# Final Requirements Output
+final_requirements:
+  - id: RQ-1
+    description: Application displays a window with a 'Hello, world!' label that can move.
+  - id: RQ-2
+    description: Four directional buttons (up, down, left, right) arranged in cross pattern.
+  - id: RQ-3
+    description: Separate 'Center' button returns label to initial center position.
+  - id: RQ-4
+    description: Label position updates visibly with each button press (20px increments).
+  - id: RQ-5
+    description: UI is clean, centered, and uses consistent spacing.
+  - id: RQ-6
+    description: Directional buttons use arrow symbols (↑↓←→) for clarity.
+  - id: RQ-7
+    description: App is for demo and educational purposes only.
+  - id: RQ-8
+    description: (Optional) UI sketch provided as input_images/sketch.png.
+implementation:
+  domain:
+    - JoystickViewModel class in domain.hpp/cpp
+    - Properties: labelX, labelY, labelText (Q_PROPERTY with NOTIFY)
+    - Methods: moveUp(), moveDown(), moveLeft(), moveRight(), centerLabel() (Q_INVOKABLE)
+    - Movement increment: MOVE_STEP = 20.0 pixels
+  ui:
+    - RootView.qml with JoystickViewModel instance
+    - Text element with objectName "movableLabel" bound to viewModel properties
+    - Four Button elements for directions (objectNames: upButton, downButton, leftButton, rightButton)
+    - One Button element for center (objectName: centerButton)
+    - Cross layout: Column > Button(Up) > Row[Button(Left), Spacer, Button(Right)] > Button(Down) > Button(Center)
+  tests:
+    - test_domain.cpp: 7 unit tests for JoystickViewModel
+    - tst_ui.qml: UI integration tests for button clicks and label movement
+    - test_system.cpp: System integration test
+notes: All requirements validated and ready for implementation in the Joystick Hello World demo application.

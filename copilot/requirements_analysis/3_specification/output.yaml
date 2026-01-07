@@ -1,2 +1,27 @@
-specifications:
-  # Add detailed specifications here
+# Specification Step Output
+functional:
+  - id: RQ-1
+    spec: The main window contains a movable Text element displaying "Hello, world!".
+  - id: RQ-2
+    spec: Four directional buttons arranged in cross pattern (Up top, Down bottom, Left/Right sides).
+  - id: RQ-3
+    spec: A 'Center' button positioned below the directional controls.
+  - id: RQ-4
+    spec: Each directional button moves the label by a fixed amount (e.g., 20 pixels) in the corresponding direction.
+  - id: RQ-5
+    spec: The 'Center' button resets label position to (0, 0) relative to center.
+non_functional:
+  - id: RQ-6
+    spec: Directional buttons display arrow symbols (↑, ↓, ←, →) with consistent sizing (60x60 pixels).
+  - id: RQ-7
+    spec: UI elements are centered in window with consistent spacing (8-32 pixels).
+  - id: RQ-8
+    spec: Label uses readable font size (32px) and visible color.
+acceptance_criteria:
+  - The app starts with label at center position displaying "Hello, world!".
+  - Clicking Up button moves label upward by 20 pixels.
+  - Clicking Down button moves label downward by 20 pixels.
+  - Clicking Left button moves label left by 20 pixels.
+  - Clicking Right button moves label right by 20 pixels.
+  - Clicking Center button returns label to initial center position.
+  - All UI elements are visible and properly aligned.
