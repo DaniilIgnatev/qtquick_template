@@ -10,11 +10,8 @@
 - No communication to real devices.
 - No sophisticated backend or API integration.
 
-## Non-functional requirements
+## UI
 - Intuitive layout.
 - Clean styling.
 - Fluid design.
-- UI updates when data changes.
-
-## Functional requirements
-- Application is a single view with a "Hello world" text.
+- Updates when data changes.

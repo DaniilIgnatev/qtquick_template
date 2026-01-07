@@ -52,7 +52,7 @@ Always allow to send "a" followed by "Enter" to the terminal when it will be reu
 - Document new modules/components in `README.md` and `CHANGELOG.md` as needed.
 
 ## References
-- [copilot/requirements.md](../copilot/requirements.md): What must be achieved
+- [copilot/goals.md](../copilot/goals.md): What must be achieved
 - [copilot/coding-guidelines.md](../copilot/coding-guidelines.md): Coding standards
 - [copilot/testing-guidelines.md](../copilot/testing-guidelines.md): Testing strategy
 - [copilot/tech-stack.md](../copilot/tech-stack.md): Tech stack
