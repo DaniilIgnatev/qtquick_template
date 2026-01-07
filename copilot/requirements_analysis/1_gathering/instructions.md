@@ -1,3 +1,5 @@
+**YAML formatting guideline:**
+- Always use spaces (never tabs) for indentation in YAML files.
 # Step 1: Requirements Gathering Instructions
 
 **Purpose:** Collect initial requirements from all available sources (stakeholder notes, sketches, images).

@@ -1,3 +1,5 @@
+**YAML formatting guideline:**
+- Always use spaces (never tabs) for indentation in YAML files.
 # Step 2: Requirements Analysis Instructions
 
 **Purpose:** Clarify, categorize, and prioritize requirements.

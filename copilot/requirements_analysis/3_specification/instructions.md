@@ -1,3 +1,5 @@
+**YAML formatting guideline:**
+- Always use spaces (never tabs) for indentation in YAML files.
 # Step 3: Specification Instructions
 
 **Purpose:** Translate structured requirements into actionable specifications.

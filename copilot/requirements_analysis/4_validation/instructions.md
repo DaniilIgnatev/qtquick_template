@@ -1,3 +1,5 @@
+**YAML formatting guideline:**
+- Always use spaces (never tabs) for indentation in YAML files.
 # Step 4: Validation Instructions
 
 **Purpose:** Validate specifications for completeness and feasibility.

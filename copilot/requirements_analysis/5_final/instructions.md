@@ -1,3 +1,5 @@
+**YAML formatting guideline:**
+- Always use spaces (never tabs) for indentation in YAML files.
 # Step 5: Documentation/Finalization Instructions
 
 **Purpose:** Finalize and document the agreed requirements and specifications.
