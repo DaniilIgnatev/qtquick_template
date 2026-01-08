@@ -1,0 +1,43 @@
+@startuml
+title Data Flow - User Interaction (Button Click)
+
+actor User
+participant "RootView.qml" as QML
+participant "upButton" as Button
+participant "JoystickViewModel" as VM
+participant "QtQuick Engine" as Engine
+
+User -> Button : clicks
+activate Button
+Button -> QML : onClicked signal
+activate QML
+QML -> VM : moveUp()
+activate VM
+
+VM -> VM : m_labelY -= MOVE_STEP
+VM -> VM : emit labelYChanged()
+deactivate VM
+
+VM --> QML : labelYChanged signal
+QML -> QML : property binding updates\nText.y = viewModel.labelY
+deactivate QML
+
+QML -> Engine : trigger re-render
+activate Engine
+Engine -> Engine : calculate new layout
+Engine --> User : display updated UI
+deactivate Engine
+deactivate Button
+
+note right of VM
+  Internal state updated:
+  m_labelY = m_labelY - 20.0
+end note
+
+note left of Engine
+  Declarative bindings ensure
+  UI automatically reflects
+  ViewModel state changes
+end note
+
+@enduml

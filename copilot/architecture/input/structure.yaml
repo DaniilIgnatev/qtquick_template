@@ -1,0 +1,18 @@
+# Component Structure Draft
+# Preliminary API specifications - subject to review
+
+joystick_view_model_draft:
+  properties:
+    - labelX: qreal
+    - labelY: qreal
+    - labelText: QString
+
+  methods:
+    - moveUp()
+    - moveDown()
+    - moveLeft()
+    - moveRight()
+    - centerLabel()
+
+  constants:
+    - MOVE_STEP: 20.0 # pixels, may adjust after visual testing

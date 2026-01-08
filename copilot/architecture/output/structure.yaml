@@ -1,0 +1,51 @@
+# Component API Specifications - Joystick Hello World
+# Use YAML only for structured data awkward in prose
+# All explanations, rationale, and descriptions belong in output.md
+
+# JoystickViewModel API
+joystick_view_model:
+  properties:
+    - name: labelX
+      type: qreal
+      access: READ
+      notify: labelXChanged
+    - name: labelY
+      type: qreal
+      access: READ
+      notify: labelYChanged
+    - name: labelText
+      type: QString
+      access: READ
+      notify: labelTextChanged
+
+  methods:
+    - name: moveUp
+      return: void
+      parameters: []
+      qualifier: Q_INVOKABLE
+    - name: moveDown
+      return: void
+      parameters: []
+      qualifier: Q_INVOKABLE
+    - name: moveLeft
+      return: void
+      parameters: []
+      qualifier: Q_INVOKABLE
+    - name: moveRight
+      return: void
+      parameters: []
+      qualifier: Q_INVOKABLE
+    - name: centerLabel
+      return: void
+      parameters: []
+      qualifier: Q_INVOKABLE
+
+  signals:
+    - labelXChanged
+    - labelYChanged
+    - labelTextChanged
+
+  constants:
+    - name: MOVE_STEP
+      type: double
+      value: 20.0
