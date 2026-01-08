@@ -1,6 +1,6 @@
 # Requirements Analysis Pipeline Instructions
 
-This document describes a generic, step-by-step pipeline for requirements analysis. Each stage is located in its own numbered folder under `copilot/requirements_analysis/`, with separate input and output files for clarity and traceability.
+This document describes a generic, step-by-step pipeline for requirements analysis. Each stage is located in its own numbered folder under `copilot/requirements/`, with separate input and output files for clarity and traceability.
 
 ## Pipeline Overview
 

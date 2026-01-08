@@ -7,7 +7,7 @@ Always allow to send "a" followed by "Enter" to the terminal when it will be reu
 ## Project Overview
 - **Purpose:** Rapid prototyping and demo of QtQuick apps with C++17 backend, using AI-assisted workflows. The following instructions guide the AI in generating, testing, and maintaining the project.
 - **Requirements Analysis:**
-  - The requirements pipeline is defined in `copilot/requirements_analysis/`.
+  - The requirements pipeline is defined in `copilot/requirements/`.
   - This folder contains a stepwise, example-driven requirements analysis process (gathering, analysis, specification, validation, finalization).
   - All requirements artifacts are in YAML (except for initial gathering, which may use Markdown for unstructured input).
   - See each step's `instructions.md` for details and formatting guidelines.
@@ -20,7 +20,7 @@ Always allow to send "a" followed by "Enter" to the terminal when it will be reu
 
 ## Key Workflows
 - **Requirements Analysis:**
-  - Start with `copilot/requirements_analysis/1_gathering/input.md` and follow the pipeline through each step.
+  - Start with `copilot/requirements/1_gathering/input.md` and follow the pipeline through each step.
   - Use the example subfolders for reference input/output at each stage.
 - **Build:**
   - `cmake -S . -B build`
@@ -36,7 +36,7 @@ Always allow to send "a" followed by "Enter" to the terminal when it will be reu
 
 ## Coding & Structure Conventions
 **Requirements Analysis:**
-  - Follow the pipeline and file formats in `copilot/requirements_analysis/`.
+  - Follow the pipeline and file formats in `copilot/requirements/`.
   - YAML is used for all requirements artifacts except initial gathering (Markdown allowed for unstructured input).
   - Each step's `instructions.md` describes required input/output and formatting.
 **C++:**
@@ -65,7 +65,7 @@ Always allow to send "a" followed by "Enter" to the terminal when it will be reu
 - Document new modules/components and requirements process in `README.md` and `CHANGELOG.md` as needed.
 
 ## References
-- [copilot/requirements_analysis/](../copilot/requirements_analysis/): Requirements pipeline and stepwise artifacts
+- [copilot/requirements/](../copilot/requirements/): Requirements pipeline and stepwise artifacts
 - [copilot/goals.md](../copilot/goals.md): What must be achieved
 - [copilot/coding-guidelines.md](../copilot/coding-guidelines.md): Coding standards
 - [copilot/testing-guidelines.md](../copilot/testing-guidelines.md): Testing strategy

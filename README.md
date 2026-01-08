@@ -15,7 +15,7 @@ This template demonstrates how to use AI-assisted workflows (e.g., GitHub Copilo
 - C++17 backend logic
 - Example QML and C++ unit tests
 - Cross-platform: Desktop & WebAssembly
-- Stepwise requirements analysis pipeline (see copilot/requirements_analysis/)
+- Stepwise requirements analysis pipeline (see copilot/requirements/)
 - YAML-driven requirements artifacts for automation
 - Coding/testing guidelines included
 - **Working Reference Example**: Joystick demo showing complete MVVM implementation
@@ -27,7 +27,7 @@ This template demonstrates how to use AI-assisted workflows (e.g., GitHub Copilo
 - C++17 compiler
 
 ### Requirements Analysis Pipeline
-The requirements pipeline is in `copilot/requirements_analysis/` and consists of:
+The requirements pipeline is in `copilot/requirements/` and consists of:
 - **1_gathering**: Stakeholder/context input (**Markdown** for initial unstructured input)
 - **2_analysis**: Raw requirements to structured format (**YAML** input/output)
 - **3_specification**: Detailed specs and acceptance criteria (**YAML** input/output)
@@ -37,8 +37,8 @@ The requirements pipeline is in `copilot/requirements_analysis/` and consists of
 **File Format Convention:** Step 1 uses `.md` for unstructured input; all subsequent steps use `.yaml` only.
 
 Each step has:
-- `input.yaml`/`input.md` and `output.yaml` (see each step's instructions.md)
-- Example subfolder for sample input/output
+   - `input.yaml`/`input.md` and `output.yaml` (see each step's instructions.md)
+   - Example subfolder for sample input/output
 
 ### Build & Run
 ```sh
@@ -57,12 +57,12 @@ ctest --test-dir build
 - `src/ui/` – QML UI components
 - `src/domain/` – Business logic, models
 - `tests/` – Top-level test config
-- `copilot/requirements_analysis/` – Stepwise requirements pipeline (see instructions.md in each step)
+- `copilot/requirements/` – Stepwise requirements pipeline (see instructions.md in each step)
 - `copilot/` – Guidelines and requirements
 
 ## Requirements Analysis Pipeline
 
-See [copilot/requirements_analysis/](copilot/requirements_analysis/) for the full stepwise requirements pipeline, YAML formats, and example-driven workflow. Each step's instructions.md describes the required input/output and formatting.
+See [copilot/requirements/](copilot/requirements/) for the full stepwise requirements pipeline, YAML formats, and example-driven workflow. Each step's instructions.md describes the required input/output and formatting.
 
 ## C++/QML Type Registration
 
@@ -81,7 +81,7 @@ All C++/QML type registration is centralized for scalability and testability. Se
 
 **To use this template for your application:**
 
-1. **Define your requirements**: Start with `copilot/requirements_analysis/1_gathering/input.md`
+1. **Define your requirements**: Start with `copilot/requirements/1_gathering/input.md`
 2. **Replace reference implementation**: 
    - For simple projects: Keep `domain.hpp/domain.cpp` and replace `JoystickViewModel` with your own domain logic classes
    - For larger projects: Replace `domain.hpp/domain.cpp` with your own application-specific files (e.g., `MyAppViewModel.hpp/cpp`, `DataModel.hpp/cpp`, etc.)
