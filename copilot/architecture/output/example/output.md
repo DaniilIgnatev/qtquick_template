@@ -1,4 +1,4 @@
-# Architecture Decisions and Rationale - Joystick Hello World
+# Architecture - Joystick Hello World
 
 ## Overview
 This architecture implements a simple MVVM-based QtQuick application for demonstrating AI-assisted development workflows. The design prioritizes clarity, testability, and educational value over production-grade complexity.
@@ -7,10 +7,9 @@ This architecture implements a simple MVVM-based QtQuick application for demonst
 - RQ-1 to RQ-6: Movable label with directional controls
 - RQ-7: Demo/educational focus (simplicity)
 
-## Architectural Decisions
+## Architectural Pattern: MVVM
 
-### 1. MVVM Pattern
-**Decision:** Use Model-View-ViewModel pattern with QML View and C++ ViewModel.
+The application follows Model-View-ViewModel pattern with QML View and C++ ViewModel.
 
 **Rationale:**
 - Requirements (RQ-1 to RQ-6) demand reactive UI that updates on user interaction
@@ -22,131 +21,192 @@ This architecture implements a simple MVVM-based QtQuick application for demonst
 - Slight overhead compared to direct QML logic
 - Benefit: Clearer architecture, easier to maintain and extend
 
-### 2. Consolidated Domain Logic
-**Decision:** Keep all domain logic in `domain.hpp/domain.cpp` (JoystickViewModel)
+## Architecture Layers
 
-**Rationale:**
-- RQ-7: Demo purposes - simplicity over modularity
-- Small application scope doesn't justify multiple domain classes
-- Easier to understand for educational purposes
-- Can be split later if requirements grow
+### Application Layer
+**Purpose:** Application bootstrapping and C++/QML integration
 
-**Trade-offs:**
-- Less modular than separate Model/ViewModel classes
-- Benefit: Lower cognitive load for demo audience
+**Components:**
+- **main.cpp:** Entry point that creates QGuiApplication, calls type registration, creates QQmlApplicationEngine, and loads RootView.qml
+- **qml_type_registration.cpp/hpp:** Centralized registration of C++ types for QML access using `qmlRegisterType<JoystickViewModel>("App.Domain", 1, 0, "JoystickViewModel")`
 
-### 3. Centralized QML Type Registration
-**Decision:** All C++/QML type registration in `qml_type_registration.cpp`
-
-**Rationale:**
-- Scalability: Easy to add new types without touching main.cpp
-- Testability: Registration can be reused in test executables
-- Follows Qt best practices for larger applications
+**Design Decision:** Centralized type registration (not in main.cpp)
+- Rationale: Scalability, testability, follows Qt best practices
 - See `copilot/cpp-qml-type-registration.md` for pattern details
+- Trade-off: Extra indirection for simple apps, but consistent pattern that scales
 
-**Trade-offs:**
-- Extra indirection for simple apps
-- Benefit: Consistent pattern that scales
+### UI Layer
+**Purpose:** Declarative presentation layer
 
-### 4. Property-Based Reactivity
-**Decision:** Use Q_PROPERTY with NOTIFY signals for all ViewModel state
+**Components:**
+- **RootView.qml:** Main QML view containing layout and UI elements
+  - Instantiates JoystickViewModel
+  - Contains Text element (objectName: "movableLabel") displaying and positioned by ViewModel
+  - Contains five Button elements: upButton, downButton, leftButton, rightButton, centerButton
+  - Layout: Column with buttons arranged in cross pattern
 
-**Rationale:**
-- Requirements demand fluid UI updates (RQ-4, RQ-5)
-- QML bindings automatically react to property changes
-- Declarative approach reduces imperative code
-- Aligns with Qt/QML best practices
+**Property Bindings:**
+- `Text.text` ← `viewModel.labelText` (displays ViewModel text)
+- `Text.x` ← `viewModel.labelX` (horizontal position)
+- `Text.y` ← `viewModel.labelY` (vertical position)
 
-**Trade-off:** Slight overhead vs. manual updates
-- Cost: Extra boilerplate (NOTIFY signals, getter methods)
-- Benefit: Automatic UI synchronization, no manual update calls
+**Command Bindings:**
+- Each Button's `onClicked` invokes corresponding ViewModel method (moveUp/Down/Left/Right/centerLabel)
+
+**Design Decision:** Property-based reactivity
+- Rationale: Requirements demand fluid UI updates (RQ-4, RQ-5); QML bindings automatically react to property changes
+- Trade-off: Extra boilerplate (NOTIFY signals) vs. automatic UI synchronization
 - Decision: Worth it for demo clarity and correctness
 
-### 5. Command Pattern for User Actions
-**Decision:** Q_INVOKABLE methods for button actions
+### Domain Layer
+**Purpose:** Business logic and state management
 
-**Rationale:**
-- Clean separation: QML calls commands, doesn't manipulate state directly
-- Easier to test and extend (can mock commands)
-- Follows command pattern idiom familiar to developers
+**Components:**
+- **JoystickViewModel (C++ QObject):** Located in `src/domain/domain.hpp/cpp`
+  - Manages label position and text
+  - Exposes state via Q_PROPERTY, commands via Q_INVOKABLE
 
-**Alternative Considered:** Direct property manipulation from QML
-- Rejected: Breaks encapsulation, harder to test, couples UI to state representation
+**Properties (Q_PROPERTY with NOTIFY):**
+- `labelX` (qreal): Horizontal position of label
+- `labelY` (qreal): Vertical position of label  
+- `labelText` (QString): Text content (initially "Hello, world!")
 
-### 6. Three-Layer Testing Strategy
-**Decision:** Unit (C++), Integration (QML), System (full app) tests
+**Methods (Q_INVOKABLE):**
+- `moveUp()`: Decrements labelY by MOVE_STEP
+- `moveDown()`: Increments labelY by MOVE_STEP
+- `moveLeft()`: Decrements labelX by MOVE_STEP
+- `moveRight()`: Increments labelX by MOVE_STEP
+- `centerLabel()`: Resets labelX and labelY to 0
+
+**Constants:**
+- `MOVE_STEP = 20.0` pixels per movement
+
+**Internal State:**
+- `m_labelX`, `m_labelY`, `m_labelText` (private members)
+
+**Design Decision:** Consolidated domain logic in single ViewModel class
+- Rationale: RQ-7 demo simplicity; small scope doesn't justify separate Model class
+- Trade-off: Less modular, but lower cognitive load for educational purposes
+- Can be split later if requirements grow
+
+**Design Decision:** Command pattern for user actions (Q_INVOKABLE methods)
+- Rationale: Clean separation, QML calls commands instead of manipulating state directly
+- Alternative considered: Direct property manipulation from QML (rejected: breaks encapsulation, harder to test)
+
+**Design Decision:** 20px movement step
+- Rationale: Visible but not jarring for demo purposes
+- Trade-off: Hard-coded vs. configurable (chose simplicity per RQ-7)
+
+## Data Flows
+
+### User Interaction Flow
+When user clicks a directional button:
+
+1. User clicks button in RootView.qml (e.g., upButton)
+2. QML `onClicked` handler invokes `viewModel.moveUp()`
+3. JoystickViewModel executes `moveUp()`: `m_labelY -= MOVE_STEP`
+4. ViewModel emits `labelYChanged()` signal
+5. QML property binding reacts: `Text.y = viewModel.labelY`
+6. QtQuick engine triggers re-render with new position
+
+**Design Decision:** Unidirectional data flow
+- Rationale: QML never mutates ViewModel state directly; commands flow UI→ViewModel, state flows ViewModel→UI
+- Prevents synchronization bugs, makes behavior predictable and debuggable
+
+See `dataflow.puml` for visual sequence diagram.
+
+### Initialization Flow
+Application startup sequence:
+
+1. `main.cpp` creates QGuiApplication
+2. Calls `registerQmlTypes()` from qml_type_registration
+3. `qmlRegisterType<JoystickViewModel>()` registers type with QML engine
+4. Creates QQmlApplicationEngine and loads RootView.qml
+5. RootView.qml instantiates JoystickViewModel
+6. JoystickViewModel constructor initializes properties (labelX=0, labelY=0, labelText="Hello, world!")
+7. QML establishes property bindings
+8. QtQuick renders initial UI state
+
+## Testing Architecture
+
+**Three-layer strategy:** Unit (C++), Integration (QML), System (full app)
 
 **Rationale:**
 - Requirements validation needs comprehensive coverage
 - Each layer targets different failure modes:
   - Unit: Logic errors in ViewModel
-  - Integration: QML/C++ binding issues
+  - Integration: QML/C++ binding issues  
   - System: Full application lifecycle problems
 
-**Why Not Just System Tests?**
-- Slow feedback loop
-- Hard to diagnose failures
-- Cannot test edge cases easily
+**Why not just system tests?** Slow feedback, hard to diagnose, can't test edge cases easily
+**Why not just unit tests?** Miss integration issues (type registration, property bindings), don't validate actual workflows
 
-**Why Not Just Unit Tests?**
-- Miss integration issues (type registration, property bindings)
-- Don't validate actual user workflows
+### Unit Tests: test_domain.cpp
+- Framework: QtTest
+- Scope: JoystickViewModel business logic in isolation
+- Coverage: Initial state, moveUp/Down/Left/Right logic, centerLabel, property signals
+- Test count: 7 tests
 
-See `structure.yaml` for test component details and `copilot/testing-guidelines.md` for strategy.
+### Integration Tests: tst_ui.qml
+- Framework: QtQuickTest
+- Scope: QML/C++ integration, UI bindings
+- Coverage: Component loading, property bindings, button clicks, objectName access
 
-## Component Organization Rationale
+### System Tests: test_system.cpp
+- Framework: QtTest
+- Scope: End-to-end application behavior
+- Coverage: Full lifecycle, integration of all components
 
-### Why Three Layers?
-- **Application:** Bootstrapping and integration (unavoidable boilerplate)
-- **UI:** Presentation logic (QML strength)
-- **Domain:** Business logic (C++ strength)
+**Test Reusability:** System tests reuse `qml_type_registration` code, ensuring test environment matches production
 
-Clear boundaries improve:
-- Testability: each layer tested independently
-- Maintainability: changes isolated to appropriate layer
-- Educational value: architecture easy to explain
-
-### Why 20px Movement Step?
-- Visible but not jarring for demo purposes
-- Simple constant, easy to adjust
-- Trade-off: Hard-coded vs. configurable (chose simplicity per RQ-7)
-
-## Data Flow Design
-
-See `dataflow.puml` for visual sequence. Key decision: **unidirectional data flow**.
-
-**Rationale:**
-- QML never mutates ViewModel state directly
-- Commands flow: UI → ViewModel (via Q_INVOKABLE)
-- State flows: ViewModel → UI (via Q_PROPERTY bindings)
-- Prevents synchronization bugs
-- Makes behavior predictable and debuggable
+See `copilot/testing-guidelines.md` for comprehensive testing strategy.
 
 ## Technology Stack Alignment
 
-Architecture fully complies with constraints in `copilot/tech-stack.md`. Key decisions driven by stack:
-- MVVM chosen (required pattern)
-- QtQuick 2.15 (not newer Qt 6 features)
-- C++17 features used where appropriate
-- Cross-platform design (no platform-specific code)
+Architecture fully complies with constraints in `copilot/tech-stack.md`:
+- **CMake:** Modular build system
+- **MVVM:** Required design pattern ✓
+- **QtQuick 2.15:** UI framework (not using newer Qt 6-only features) ✓
+- **C++17:** Backend logic ✓
+- **Qt Quick Test:** Unit testing ✓
+- **Cross-platform:** Desktop and WebAssembly support ✓
 
-## Diagrams
-- `structure.puml` - Component relationships (see for visual architecture)
-- `dataflow.puml` - User interaction sequence (see for runtime behavior)
-- `structure.yaml` - Detailed component specifications (see for API details)
+## Design Constraints Impact
+
+**RQ-7 (Demo Simplicity):**
+- Domain logic consolidated in single ViewModel (not separate Model)
+- Hard-coded constants instead of configuration
+- Minimal error handling
+
+**QtQuick 2.15:**
+- Use compatible QML subset only
+- Avoid Qt 6+ features
+
+**C++17:**
+- Modern C++ features available (smart pointers, auto, etc.)
+
+**Cross-platform:**
+- No platform-specific code
+- Pure Qt/QML implementation
 
 ## Non-Goals (RQ-7 Compliance)
-- No production-grade architecture (e.g., dependency injection, plugin system)
-- No complex state management (e.g., Redux-like patterns)
+- No production-grade architecture (dependency injection, plugin system)
+- No complex state management (Redux-like patterns)
 - No network/database layers
 - No sophisticated error handling
+- No persistence
 
 ## Future Extensibility
 If requirements evolve beyond demo scope:
 - Split ViewModel and Model into separate classes
-- Add proper dependency injection
+- Add dependency injection framework
 - Introduce service layer for complex logic
-- Add configuration management
+- Add configuration management system
+- Implement state persistence
+
+## Visual Documentation
+- `structure.puml` - Component relationships diagram (complex many-to-many relationships benefit from visual representation)
+- `dataflow.puml` - User interaction sequence diagram (temporal flow visualization)
 
 ## References
 - `copilot/requirements/5_final/output.yaml` - Final requirements
