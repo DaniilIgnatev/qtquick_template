@@ -1,0 +1,90 @@
+@startuml
+title Component Architecture - Joystick Hello World (Finalized)
+
+package "Application Layer" <<Rectangle>> {
+  component [main.cpp] <<entry>> #LightBlue
+  component [qml_type_registration] <<QML Bridge>> #LightBlue
+}
+
+package "UI Layer" <<Rectangle>> {
+  component [RootView.qml] <<QML View>> #LightGreen
+  
+  package "UI Elements" {
+    component [movableLabel] <<Text>> #PaleGreen
+    component [upButton] <<Button>> #PaleGreen
+    component [downButton] <<Button>> #PaleGreen
+    component [leftButton] <<Button>> #PaleGreen
+    component [rightButton] <<Button>> #PaleGreen
+    component [centerButton] <<Button>> #PaleGreen
+  }
+}
+
+package "Domain Layer" <<Rectangle>> {
+  component [JoystickViewModel] <<C++ QObject>> #LightYellow
+}
+
+package "Testing" <<Rectangle>> {
+  component [test_domain.cpp] <<Unit Tests>> #LightCoral
+  component [tst_ui.qml] <<QML Tests>> #LightCoral
+  component [test_system.cpp] <<Integration>> #LightCoral
+}
+
+' Application Layer Connections
+[main.cpp] --> [qml_type_registration] : calls registerQmlTypes()
+[qml_type_registration] --> [JoystickViewModel] : qmlRegisterType<>()
+[main.cpp] ..> [RootView.qml] : loads via QQmlApplicationEngine
+
+' UI to Domain Connections
+[RootView.qml] --> [JoystickViewModel] : property bindings\n(labelX, labelY, labelText)
+[RootView.qml] *-- "UI Elements" : contains
+[upButton] --> [JoystickViewModel] : onClicked → moveUp()
+[downButton] --> [JoystickViewModel] : onClicked → moveDown()
+[leftButton] --> [JoystickViewModel] : onClicked → moveLeft()
+[rightButton] --> [JoystickViewModel] : onClicked → moveRight()
+[centerButton] --> [JoystickViewModel] : onClicked → centerLabel()
+[movableLabel] --> [JoystickViewModel] : binds to properties
+
+' Test Connections
+[test_domain.cpp] ..> [JoystickViewModel] : unit tests
+[tst_ui.qml] ..> [RootView.qml] : integration tests
+[test_system.cpp] ..> [main.cpp] : system tests
+[test_system.cpp] ..> [qml_type_registration] : reuses registration
+
+' Notes
+note right of [JoystickViewModel]
+  **Q_PROPERTY:**
+  - labelX: qreal (NOTIFY)
+  - labelY: qreal (NOTIFY)
+  - labelText: QString (NOTIFY)
+  
+  **Q_INVOKABLE:**
+  - moveUp()
+  - moveDown()
+  - moveLeft()
+  - moveRight()
+  - centerLabel()
+  
+  **Constants:**
+  - MOVE_STEP = 20.0
+end note
+
+note bottom of [RootView.qml]
+  **Bindings:**
+  - Text.x ← viewModel.labelX
+  - Text.y ← viewModel.labelY
+  - Text.text ← viewModel.labelText
+  
+  **Commands:**
+  - Buttons call Q_INVOKABLE methods
+end note
+
+note top of [qml_type_registration]
+  **Centralized Registration:**
+  void registerQmlTypes() {
+    qmlRegisterType<JoystickViewModel>(
+      "App.Domain", 1, 0, 
+      "JoystickViewModel");
+  }
+end note
+
+@enduml

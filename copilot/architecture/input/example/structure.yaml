@@ -1,0 +1,53 @@
+# Architecture Structure (Input Draft)
+
+layers:
+  - name: Application
+    components:
+      - name: main.cpp
+        description: Entry point, QGuiApplication setup
+      - name: qml_type_registration.cpp
+        description: Registers C++ types for QML
+
+  - name: UI
+    components:
+      - name: RootView.qml
+        description: Main QML view with layout and bindings
+        properties:
+          - viewModel (JoystickViewModel instance)
+        children:
+          - Text (movableLabel)
+          - Button (upButton, downButton, leftButton, rightButton, centerButton)
+
+  - name: Domain
+    components:
+      - name: JoystickViewModel
+        type: C++ QObject
+        description: Exposes state and commands to QML
+        properties:
+          - labelX (qreal, NOTIFY)
+          - labelY (qreal, NOTIFY)
+          - labelText (QString, NOTIFY)
+        methods:
+          - moveUp() Q_INVOKABLE
+          - moveDown() Q_INVOKABLE
+          - moveLeft() Q_INVOKABLE
+          - moveRight() Q_INVOKABLE
+          - centerLabel() Q_INVOKABLE
+
+data_flow:
+  - description: User clicks button in RootView.qml
+    steps:
+      - QML button onClicked handler
+      - Call JoystickViewModel Q_INVOKABLE method
+      - ViewModel updates internal state
+      - Emit NOTIFY signal
+      - QML property binding reacts
+      - UI updates
+
+test_structure:
+  - name: test_domain.cpp
+    scope: Unit test for JoystickViewModel
+  - name: tst_ui.qml
+    scope: QML integration tests
+  - name: test_system.cpp
+    scope: System integration test

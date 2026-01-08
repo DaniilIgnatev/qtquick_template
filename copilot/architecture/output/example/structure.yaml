@@ -1,0 +1,167 @@
+# Architecture Structure - Joystick Hello World (Finalized)
+
+architecture_pattern: MVVM
+
+layers:
+  application:
+    description: Application entry and QML integration setup
+    components:
+      - name: main.cpp
+        type: C++
+        responsibility: QGuiApplication setup, QML engine, load RootView
+        dependencies:
+          - QtQuick
+          - qml_type_registration
+
+      - name: qml_type_registration.cpp/hpp
+        type: C++
+        responsibility: Register all C++ types for QML access
+        dependencies:
+          - JoystickViewModel
+          - QtQml
+
+  ui:
+    description: QML declarative UI layer
+    components:
+      - name: RootView.qml
+        type: QML
+        responsibility: Main view, layout, bindings
+        properties:
+          - viewModel: JoystickViewModel (instantiated in QML)
+        children:
+          - Column (layout container)
+          - Text (objectName: movableLabel)
+          - Button (objectName: upButton, downButton, leftButton, rightButton, centerButton)
+        bindings:
+          - Text.text ← viewModel.labelText
+          - Text.x ← viewModel.labelX
+          - Text.y ← viewModel.labelY
+        signals:
+          - Button.onClicked → viewModel.moveUp/Down/Left/Right/centerLabel()
+
+  domain:
+    description: Business logic and state management
+    components:
+      - name: JoystickViewModel
+        type: C++ QObject
+        file: src/domain/domain.hpp, src/domain/domain.cpp
+        responsibility: Manage label position, expose state/commands to QML
+        properties:
+          - labelX: qreal (READ, NOTIFY labelXChanged)
+          - labelY: qreal (READ, NOTIFY labelYChanged)
+          - labelText: QString (READ, NOTIFY labelTextChanged)
+        methods:
+          - moveUp(): Q_INVOKABLE
+          - moveDown(): Q_INVOKABLE
+          - moveLeft(): Q_INVOKABLE
+          - moveRight(): Q_INVOKABLE
+          - centerLabel(): Q_INVOKABLE
+        constants:
+          - MOVE_STEP: 20.0 (pixels per move)
+        state:
+          - m_labelX: qreal (internal)
+          - m_labelY: qreal (internal)
+          - m_labelText: QString (internal)
+
+data_flows:
+  user_interaction:
+    description: User clicks directional button
+    sequence:
+      - step: 1
+        component: RootView.qml
+        action: User clicks upButton
+      - step: 2
+        component: RootView.qml
+        action: onClicked handler invokes viewModel.moveUp()
+      - step: 3
+        component: JoystickViewModel
+        action: moveUp() updates m_labelY -= MOVE_STEP
+      - step: 4
+        component: JoystickViewModel
+        action: Emit labelYChanged()
+      - step: 5
+        component: RootView.qml
+        action: Text.y binding reacts to property change
+      - step: 6
+        component: QtQuick
+        action: UI re-renders with new position
+
+  initialization:
+    description: Application startup and QML loading
+    sequence:
+      - step: 1
+        component: main.cpp
+        action: Create QGuiApplication
+      - step: 2
+        component: main.cpp
+        action: Call registerQmlTypes() from qml_type_registration
+      - step: 3
+        component: qml_type_registration.cpp
+        action: qmlRegisterType<JoystickViewModel>()
+      - step: 4
+        component: main.cpp
+        action: Create QQmlApplicationEngine, load RootView.qml
+      - step: 5
+        component: RootView.qml
+        action: Instantiate JoystickViewModel
+      - step: 6
+        component: JoystickViewModel
+        action: Initialize properties (labelX=0, labelY=0, labelText="Hello, world!")
+      - step: 7
+        component: RootView.qml
+        action: Establish property bindings
+      - step: 8
+        component: QtQuick
+        action: Render initial UI state
+
+test_architecture:
+  unit_tests:
+    - name: test_domain.cpp
+      framework: QtTest
+      scope: JoystickViewModel business logic
+      coverage:
+        - Initial state verification
+        - moveUp/Down/Left/Right logic
+        - centerLabel functionality
+        - Property change signals
+      test_count: 7
+
+  integration_tests:
+    - name: tst_ui.qml
+      framework: QtQuickTest
+      scope: QML/C++ integration, UI bindings
+      coverage:
+        - Component loading
+        - Property bindings correctness
+        - Button click interactions
+        - UI element access via objectName
+
+  system_tests:
+    - name: test_system.cpp
+      framework: QtTest
+      scope: End-to-end application behavior
+      coverage:
+        - Full application lifecycle
+        - Integration of all components
+
+deployment_targets:
+  - platform: Desktop
+    description: macOS, Linux, Windows
+  - platform: WebAssembly
+    description: Browser-based execution
+
+key_design_constraints:
+  - constraint: Demo simplicity (RQ-7)
+    impact: Domain logic consolidated in single ViewModel class
+  - constraint: QtQuick 2.15
+    impact: Use compatible QML features only
+  - constraint: C++17
+    impact: Modern C++ features available
+  - constraint: Cross-platform
+    impact: Avoid platform-specific code
+
+references:
+  - copilot/requirements/5_final/output.yaml
+  - copilot/coding-guidelines.md
+  - copilot/testing-guidelines.md
+  - copilot/cpp-qml-type-registration.md

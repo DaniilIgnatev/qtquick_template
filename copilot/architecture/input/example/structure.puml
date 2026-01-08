@@ -1,0 +1,57 @@
+@startuml
+title Component Diagram - Joystick Hello World (Input Draft)
+
+package "Application Layer" {
+  [main.cpp] <<entry>>
+  [qml_type_registration.cpp] <<QML Bridge>>
+}
+
+package "UI Layer" {
+  [RootView.qml] <<QML View>>
+  component "UI Elements" {
+    [movableLabel] <<Text>>
+    [upButton] <<Button>>
+    [downButton] <<Button>>
+    [leftButton] <<Button>>
+    [rightButton] <<Button>>
+    [centerButton] <<Button>>
+  }
+}
+
+package "Domain Layer" {
+  [JoystickViewModel] <<C++ QObject>>
+}
+
+package "Testing" {
+  [test_domain.cpp] <<Unit Tests>>
+  [tst_ui.qml] <<QML Tests>>
+  [test_system.cpp] <<Integration>>
+}
+
+[main.cpp] --> [qml_type_registration.cpp] : registers
+[qml_type_registration.cpp] --> [JoystickViewModel] : exposes to QML
+[main.cpp] ..> [RootView.qml] : loads
+
+[RootView.qml] --> [JoystickViewModel] : property bindings
+[RootView.qml] *-- "UI Elements"
+["UI Elements"] --> [JoystickViewModel] : Q_INVOKABLE calls
+
+[test_domain.cpp] ..> [JoystickViewModel] : tests
+[tst_ui.qml] ..> [RootView.qml] : tests
+[test_system.cpp] ..> [main.cpp] : tests
+
+note right of [JoystickViewModel]
+  Q_PROPERTY:
+  - labelX
+  - labelY
+  - labelText
+  
+  Q_INVOKABLE:
+  - moveUp()
+  - moveDown()
+  - moveLeft()
+  - moveRight()
+  - centerLabel()
+end note
+
+@enduml
