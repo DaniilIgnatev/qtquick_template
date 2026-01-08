@@ -2,13 +2,29 @@ import QtQuick 2.15
 import QtQuick.Controls 2.15
 import App.Domain 1.0
 
+// ============================================================================
+// REFERENCE EXAMPLE: Joystick Hello World UI
+// ============================================================================
+// This demonstrates:
+// - QML/C++ integration via ViewModel
+// - Property bindings for reactive UI (text, x, y)
+// - Q_INVOKABLE method calls from QML (onClicked handlers)
+// - objectName properties for testing
+// - Clean layout using Column, Row, spacing
+//
+// USAGE: Replace this with your application UI based on your requirements
+// ============================================================================
+
+/**
+ * Main view for the Joystick Hello World application (REFERENCE EXAMPLE)
+ * Displays a movable label controlled by directional buttons in a cross pattern
+ */
 Rectangle {
     id: rootView
     color: "white"
     anchors.fill: parent
 
-    // JoystickViewModel: Reference implementation example
-    // Replace this with your own ViewModel based on requirements
+    // ViewModel instance - replace with your own ViewModel
     JoystickViewModel {
         id: viewModel
     }
